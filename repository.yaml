@@ -1,0 +1,5 @@
+---
+# https://developers.home-assistant.io/docs/add-ons/repository#repository-configuration
+name: Li Tin O've Weedle Home Assistant add-on repository - development
+url: 'https://github.com/litinoveweedle/hassio-addons-edge'
+maintainer: Dominik Strnad <litinoveweedle@gmail.com>

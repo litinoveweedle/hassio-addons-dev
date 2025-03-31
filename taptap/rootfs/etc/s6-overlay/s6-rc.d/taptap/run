@@ -1,0 +1,11 @@
+#!/usr/bin/with-contenv bashio
+# ==============================================================================
+# Li Tin O've Weedle Add-on: ntopng
+# Runs the taptap-mqtt daemon
+# ==============================================================================
+
+## Print the message the user supplied, defaults to "Hello World..."
+bashio::log.info "Starting taptap..."
+
+## Run your program
+exec s6-setuidgid taptap /usr/bin/taptap/taptap-mqtt.py /etc/taptap/config.ini

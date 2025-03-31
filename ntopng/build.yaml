@@ -1,0 +1,20 @@
+# https://developers.home-assistant.io/docs/add-ons/configuration#add-on-dockerfile
+build_from:
+  # renovate: datasource=github-releases depName=hassio-addon-debian-base packageName=hassio-addons/addon-debian-base versioning=semver
+  aarch64: "ghcr.io/hassio-addons/debian-base/aarch64:7.8.1"
+  # renovate: datasource=github-releases depName=hassio-addon-debian-base packageName=hassio-addons/addon-debian-base versioning=semver
+  amd64: "ghcr.io/hassio-addons/debian-base/amd64:7.8.1"
+  # renovate: datasource=github-releases depName=hassio-addon-debian-base packageName=hassio-addons/addon-debian-base versioning=semver
+  armv7: "ghcr.io/hassio-addons/debian-base/armv7:7.8.1"
+  # renovate: datasource=github-releases depName=hassio-addon-debian-base packageName=hassio-addons/addon-debian-base versioning=semver
+  i386: "ghcr.io/hassio-addons/debian-base/i386:7.8.1"
+
+args:
+  BUILD_REPO: litinoveweedle/hassio-addons-dev
+  BUILD_DESCRIPTION: "hassio ntop addon"
+  # renovate: datasource=github-releases depName=ntop-ndpi packageName=ntop/nDPI versioning=semver-coerced
+  NDPI_VERSION: "4.8"
+  # renovate: datasource=github-releases depName=ntop-ntopng packageName=ntop/ntopng versioning=semver-coerced
+  NTOP_VERSION: "5.6"
+  # renovate: datasource=github-releases depName=netflow2ng packageName=synfinatic/netflow2ng versioning=semver
+  NETFLOW2NG_VERSION: "0.0.4"

@@ -1,0 +1,104 @@
+name: Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      addon:
+        description: 'Choose addon to publish'
+        required: true
+        type: string
+      version:
+        description: 'Set addon version to publish'
+        required: true
+        type: string
+
+jobs:
+  init:
+    runs-on: ubuntu-latest
+    name: Initialize builds
+    outputs:
+      changed_addons: ${{ steps.changed_addons.outputs.addons }}
+      changed: ${{ steps.changed_addons.outputs.changed }}
+    steps:
+      - name: Check out the repository
+        uses: actions/checkout@v4.2.2
+        
+      - name: Find add-on directories
+        id: addons
+        uses: home-assistant/actions/helpers/find-addons@master
+
+      - name: Get changed add-ons
+        id: changed_addons
+        run: |
+          declare -a changed_addons
+          for addon in ${{ steps.addons.outputs.addons }}; do
+            if [[ "${{ inputs.addon }}" =~ ^${addon}$ ]]; then
+              changed_addons+=("\"${addon}\",");
+            fi
+          done
+
+          changed=$(echo ${changed_addons[@]} | rev | cut -c 2- | rev)
+
+          if [[ -n ${changed} ]]; then
+            echo "Changed add-ons: $changed";
+            echo "changed=true" >> $GITHUB_OUTPUT;
+            echo "addons=[$changed]" >> $GITHUB_OUTPUT;
+          else
+            echo "No add-on with given name found (${{ inputs.addon }})";
+          fi
+  build:
+    needs: init
+    runs-on: ubuntu-22.04
+    if: needs.init.outputs.changed == 'true'
+    name: Build ${{ matrix.arch }} ${{ matrix.addon }} add-on
+    strategy:
+      matrix:
+        addon: ${{ fromJson(needs.init.outputs.changed_addons) }}
+        arch: ["aarch64", "amd64", "armhf", "armv7", "i386"]
+    permissions:
+      contents: read
+      packages: write
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4.2.2
+
+      - name: Get information
+        id: info
+        uses: home-assistant/actions/helpers/info@master
+        with:
+          path: "./${{ matrix.addon }}"
+
+      - name: Check if add-on should be built
+        id: check
+        run: |
+          if [[ "${{ steps.info.outputs.image }}" == "null" ]]; then
+            echo "Image property is not defined, skipping build"
+            echo "build_arch=false" >> $GITHUB_OUTPUT;
+          elif [[ "${{ steps.info.outputs.architectures }}" =~ ${{ matrix.arch }} ]]; then
+            echo "build_arch=true" >> $GITHUB_OUTPUT;
+            echo "image=$(echo ${{ steps.info.outputs.image }} | cut -d'/' -f3)" >> $GITHUB_OUTPUT;
+          else
+            echo "${{ matrix.arch }} is not a valid arch for ${{ matrix.addon }}, skipping build";
+            echo "build_arch=false" >> $GITHUB_OUTPUT;
+          fi
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v3.4.0
+        with:
+          registry: ghcr.io
+          username: ${{ github.repository_owner }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build ${{ matrix.addon }} add-on
+        if: steps.check.outputs.build_arch == 'true'
+        uses: home-assistant/builder@2025.03.0
+        with:
+          args: |
+            --${{ matrix.arch }} \
+            --version ${{ inputs.version }} \
+            --target /data/${{ matrix.addon }} \
+            --image "${{ steps.check.outputs.image }}" \
+            --docker-hub "ghcr.io/${{ github.repository_owner }}" \
+            --addon
+            

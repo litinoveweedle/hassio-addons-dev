@@ -1,0 +1,59 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "rebaseWhen": "behind-base-branch",
+  "dependencyDashboard": true,
+  "labels": [
+    "dependencies"
+  ],
+  "commitMessagePrefix": "⬆️",
+  "commitMessageTopic": "{{depName}}",
+  "customManagers": [
+    {
+      "customType": "regex",
+      "description": "Update BUILD_FROM variables in build.yaml",
+      "fileMatch": [
+        "^[\\w-]+/build\\.yaml$"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>[a-z-]+?)(?: depName=(?<depName>.+?))? packageName=(?<packageName>[\\w/-]+?)(?: versioning=(?<versioning>[a-z-]+?))?\\s.+?(aarch64|amd64|armhf|armv7|i386):\\s+?\"?.+?(aarch64|amd64|armhf|armv7|i386):(?<currentValue>[0-9\\.]*)\"?\\s?"
+      ]
+    },
+    {
+      "customType": "regex",
+      "description": "Update VERSION variables in build.yaml",
+      "fileMatch": [
+        "^[\\w-]+/build\\.yaml$"
+      ],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>[a-z-]+?)(?: depName=(?<depName>.+?))? packageName=(?<packageName>[\\w/-]+?)(?: versioning=(?<versioning>[a-z-]+?))?\\s.*_VERSION:\\s+?\"?(?<currentValue>[0-9\\.]*)\"?\\s?"
+      ]
+    }
+  ],
+  "packageRules": [
+    {
+      "matchManagers": [
+        "custom.regex"
+      ],
+      "matchPackageNames": [
+        "hassio-addons/addon-base",
+        "hassio-addons/addon-debian-base"
+      ],
+      "matchUpdateTypes": [
+        "minor",
+        "patch"
+      ],
+      "automerge": true
+    },
+    {
+      "matchManagers": [
+        "custom.regex"
+      ],
+      "matchPackageNames": [
+        "ntop/nDPI",
+        "ntop/ntopng"
+      ],
+      "groupName": "ntop",
+      "separateMajorMinor": false
+    }
+  ]
+}
