@@ -5,6 +5,7 @@ slug: taptap
 description: Tigo CCA to HomeAssistant MQTT bridge
 url: "https://github.com/litinoveweedle/hassio-addons/tree/main/taptap"
 image: "ghcr.io/litinoveweedle/hassio-addon-taptap-{arch}"
+homeassistant: 2025.3.1
 arch:
   - armhf
   - armv7
