@@ -29,7 +29,7 @@ configuration:
   taptap_module_ids: 
     name: Tigo modules IDs as user on the Modbus
     description: Comma separated list of Tigo modules ids as those communicate on the Modbus. This ID are numbers typically starting from 2 and each next module has +1. If you replace one Tigo module by another new module will get new ID.
-  taptap_moudule_names:
+  taptap_module_names:
     name: Tigo modules names for Home Assistant
     description: Comma separated list of the names you would like to see in Home Assistant in corresponding entities names. Enter in the same order as Ids.
   taptap_topic_prefix:
