@@ -49,7 +49,7 @@ configuration:
     description: If set to true, then if no message from any given module is received in the time specified by 'Availability timeout' corresponding entities are set to Unavailable state.
   ha_discovery_prefix:
     name: Home assistant MQTT discovery prefix
-    description: MQTT prefix Home Assistant is subscribed for auto discovery of the new devices and entities. Please refer to HA MQTT documentation, default is: homeassistant. There is typically no need to change this setting.
+    description: MQTT prefix Home Assistant is subscribed for auto discovery of the new devices and entities. Please refer to HA MQTT documentation, default is homeassistant. There is typically no need to change this setting.
   ha_birth_topic:
     name: Home assistant MQTT LWT and birth topic
-    description: MQTT prefix Home Assistant announces when gets online. Please refer to HA MQTT documentation, default is: homeassistant/status. There is typically no need to change this setting.
+    description: MQTT prefix Home Assistant announces when gets online. Please refer to HA MQTT documentation, default is homeassistant/status. There is typically no need to change this setting.
