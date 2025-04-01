@@ -4,6 +4,7 @@ This is an ntopng add-on for Home Assistant.
 It includes opensource community version of ntopng
 and opensource netflow collector implementation netflow2ng
 
+
 ## Installation
 
 Install ntopng addon in your Home Assistant
@@ -16,6 +17,7 @@ Install ntopng addon in your Home Assistant
 2. Click the "Install" button to install the add-on.
 3. Start the "Example" add-on.
 4. Check the logs of the "Example" add-on to see it in action.
+
 
 ## Configuration
 
@@ -91,6 +93,7 @@ based on the following:
 - `MINOR`: Backwards-compatible new features and enhancements.
 - `PATCH`: Backwards-compatible bugfixes and package updates.
 
+
 ## Support
 
 Got questions?
@@ -102,9 +105,11 @@ You have several options to get them answered:
 
 You could also [open an issue here][issue] GitHub.
 
+
 ## Authors & contributors
 
 The original setup of this repository is by [Li Tin O`ve Weedle][litin].
+
 
 ## License
 

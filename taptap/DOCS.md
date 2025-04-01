@@ -108,7 +108,7 @@ Comma separated list of Tigo modules ids as those communicate on the Modbus. Thi
 
 ### Option: `taptap_moudule_names`
 
-Comma separated list of the names you would like to see in Home Assistant in corresponding entities names. Enter in the same order as Ids.
+Comma separated list of the Tigo modules names you would like to see in Home Assistant in corresponding entities names. Enter in the same order as Ids.
 
 ### Option: `taptap_topic_prefix`
 
@@ -124,7 +124,7 @@ How often Home Assistant entities are updated in seconds, default is `10`.
 
 ### Option: `taptap_timeout`
 
-If no message is received within last configured number of seconds from the node and 'Entities unavailable if node is offline' is set to true, then corresponding entities are set to Unavailable state.
+If no message is received within last given number of seconds from the node and 'Entities unavailable if node is offline' is set to true, then corresponding entities are set to Unavailable state.
 
 ### Option: `ha_entity_availability`
 
@@ -149,6 +149,7 @@ based on the following:
 - `MINOR`: Backwards-compatible new features and enhancements.
 - `PATCH`: Backwards-compatible bugfixes and package updates.
 
+
 ## Support
 
 Got questions?
@@ -158,9 +159,11 @@ You have several options to get them answered:
 - The Home Assistant [Community Forum][forum].
 - You could also [open an issue here][issue] GitHub.
 
+
 ## Authors & contributors
 
 The original setup of this repository is by [Li Tin O`ve Weedle][litin].
+
 
 ## License
 
