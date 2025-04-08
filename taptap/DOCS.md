@@ -23,8 +23,9 @@ Setup Modbus to Ethernet convertor:
   1. connect convertor to your LAN network so it will be reachable from Home Assistant
   2. assign IP address to the convertor (automatically using DHCP or manually static one)
   3. set Modbus communication to 38400b, databits 8, stopbits 1, Flow control None
-  4. set convertor mode to Modbus TCP Server    
-  5. remember IP address and TCP port of converter to set in the addon configuration later
+  4. set convertor work mode to Modbus TCP Server
+  5. set protocol to Modbus TCP (not Modbus TCP to RTU), for Waveshare converter this is on the web configuration page under the 'Multi-Host Settings' as 'Protocol' set to 'None'
+  6. remember IP address and TCP port of converter to set in the addon configuration later
 
 
 ## Addon Installation
