@@ -115,10 +115,10 @@ The original setup of this repository is by [Li Tin O`ve Weedle][litin].
 
 Apache 2.0
 
-Copyright (c) 2023 Dominik Strnad
+Copyright (c) 2025 Dominik Strnad
 
 [addon-badge]: https://my.home-assistant.io/badges/supervisor_addon.svg
-[addon]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=a0d7b954_example&repository_url=https%3A%2F%2Fgithub.com%2Flitinoveweedle%2Fhassio-addons
+[addon]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=ntopng&repository_url=https%3A%2F%2Fgithub.com%2Flitinoveweedle%2Fhassio-addons
 [contributors]: https://github.com/litinoveweedle/hassio-addons/graphs/contributors
 [forum]: https://community.home-assistant.io/t/foss-ntopng-with-netflow-collector-hassio-addon/603491
 [litin]: https://github.com/litinoveweedle

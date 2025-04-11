@@ -7,21 +7,21 @@ This addon is based on the [taptap](https://github.com/litinoveweedle/taptap) pr
 
   - MQTT broker like for example [Mosquitto addon](https://www.home-assistant.io/integrations/mqtt/#setting-up-a-broker)
   - Home Assistant [MQTT integration](https://www.home-assistant.io/integrations/mqtt/)
-  - Modbus RS485 to Ethernet convertor like for example [WaveShare models](https://www.waveshare.com/product/iot-communication/wired-comm-converter/ethernet-to-uart-rs232-rs485.htm)
+  - Modbus RS485 to Ethernet converter like for example [WaveShare models](https://www.waveshare.com/product/iot-communication/wired-comm-converter/ethernet-to-uart-rs232-rs485.htm)
 
 
 ## Modbus to Ethernet connection to Tigo CCA
 
-Modbus to Ethernet convertor has to inter connected to [Tigo CCA gateway](https://cs.tigoenergy.com/product/cloud-connect-advanced):
-  1. connect convertor to connector named Gateway on Tigo CCA gateway
+Modbus to Ethernet converter has to inter connected to [Tigo CCA gateway](https://cs.tigoenergy.com/product/cloud-connect-advanced):
+  1. connect converter to connector named Gateway on Tigo CCA gateway
   2. there will be already wires in this connector from the connected Tigo Tap on your roof
-  3. connect convertor together (in parallel) with existing wires from Tigo Tap
+  3. connect converter together (in parallel) with existing wires from Tigo Tap
   4. use 3 wires - A, B and Ground: connect A to A, B to B, Ground to Ground
-  5. wires shall be as short as possible - mount your convertor close to the Tigo CCA gateway
+  5. wires shall be as short as possible - mount your converter close to the Tigo CCA gateway
 
-Setup Modbus to Ethernet convertor:
-  1. connect convertor to your LAN network so it will be reachable from Home Assistant
-  2. assign IP address to the convertor (automatically using DHCP or manually static one)
+Setup Modbus to Ethernet converter:
+  1. connect converter to your LAN network so it will be reachable from Home Assistant
+  2. assign IP address to the converter (automatically using DHCP or manually static one)
   3. set Modbus communication to 38400b, databits 8, stopbits 1, Flow control None
   4. set convertor work mode to Modbus TCP Server
   5. set protocol to Modbus TCP (not Modbus TCP to RTU), for Waveshare converter this is on the web configuration page under the 'Multi-Host Settings' as 'Protocol' set to 'None'
@@ -93,15 +93,15 @@ MQTT broker password to connect to server.
 
 ### Option: `taptap_serial`
 
-If you use Modbus to USB/Serial convertor connected to Home assistant server this will be it device file (probably /dev/ttyUSB0 or /dev/ttyACM0). If you use Modbus to Ethernet convertor this must not be filled!
+If you use Modbus to USB/Serial converter connected to Home assistant server this will be it device file (probably /dev/ttyUSB0 or /dev/ttyACM0). If you use Modbus to Ethernet converter this must not be filled!
 
 ### Option: `taptap_address`
 
-If you use Modbus to Ethernet convertor connected to Home assistant server this will be its IP address. If you use Modbus to Serial/USB convertor this must not be filled!
+If you use Modbus to Ethernet converter connected to Home assistant server this will be its IP address. If you use Modbus to Serial/USB converter this must not be filled!
 
 ### Option: `taptap_port`
 
-If you use Modbus to Ethernet convertor connected to Home assistant server this will be its TCP port, default is `502`.
+If you use Modbus to Ethernet converter connected to Home assistant server this will be its TCP port, default is `502`.
 
 ### Option: `taptap_module_ids`
 
@@ -170,10 +170,10 @@ The original setup of this repository is by [Li Tin O`ve Weedle][litin].
 
 Apache 2.0
 
-Copyright (c) 2023 Dominik Strnad
+Copyright (c) 2025 Dominik Strnad
 
 [addon-badge]: https://my.home-assistant.io/badges/supervisor_addon.svg
-[addon]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=a0d7b954_example&repository_url=https%3A%2F%2Fgithub.com%2Flitinoveweedle%2Fhassio-addons
+[addon]: https://my.home-assistant.io/redirect/supervisor_addon/?addon=taptap&repository_url=https%3A%2F%2Fgithub.com%2Flitinoveweedle%2Fhassio-addons
 [contributors]: https://github.com/litinoveweedle/hassio-addons/graphs/contributors
 [forum]: https://community.home-assistant.io/t/tigo-optimizer-local-monitoring-without-cloud-now-possible/869754
 [litin]: https://github.com/litinoveweedle
