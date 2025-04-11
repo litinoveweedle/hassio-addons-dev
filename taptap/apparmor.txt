@@ -27,6 +27,13 @@ profile ADDON_SLUG flags=(attach_disconnected,mediate_deleted) {
   # Access to options.json and other files within your addon
   /data/** rw,
 
+  # Allow for addon specific init tasks
+  /usr/bin/chown {
+    capability chown,
+  }
+  /etc/taptap/** rw,
+  /run/taptap rw,
+
   # Start new profile for service
   /usr/bin/taptap/taptap-mqtt.py cx -> taptap,
 
@@ -45,7 +52,7 @@ profile ADDON_SLUG flags=(attach_disconnected,mediate_deleted) {
     # Access required for service functionality
     /usr/bin/taptap/taptap-mqtt.py ix,
     /usr/bin/taptap/taptap ix,
-    /var/run/taptap/** w,
+    /run/taptap/** w,
     /dev/tty rw,
   }
 }
