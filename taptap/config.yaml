@@ -13,7 +13,6 @@ arch:
   - amd64
   - i386
 init: false
-host_network: true
 uart: true
 usb: true
 options:
