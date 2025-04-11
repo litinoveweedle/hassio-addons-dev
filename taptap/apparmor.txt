@@ -30,7 +30,9 @@ profile ADDON_SLUG flags=(attach_disconnected,mediate_deleted) {
   # Allow for addon specific init tasks
   /usr/bin/chown {
     capability chown,
-  }
+    /run/taptap rw,
+    /usr/bin/chown r,
+  },
   /etc/taptap/** rw,
   /run/taptap rw,
 
