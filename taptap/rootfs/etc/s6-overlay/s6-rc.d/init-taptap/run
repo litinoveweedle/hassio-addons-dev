@@ -12,6 +12,7 @@ if ! bashio::fs.directory_exists /run/taptap; then
 fi
 
 # Find the matching taptap log level
+taptap_log_level="error"
 if bashio::config.has_value 'log_level'; then
     case "$(bashio::string.lower "$(bashio::config 'log_level')")" in
         all|trace|debug)
@@ -24,9 +25,6 @@ if bashio::config.has_value 'log_level'; then
             taptap_log_level="warning"
             ;;
         error|fatal|off)
-            taptap_log_level="error"
-            ;;
-        *)
             taptap_log_level="error"
             ;;
     esac
@@ -59,4 +57,5 @@ bashio::var.json \
         -template /etc/taptap/config.gtpl \
         -out /etc/taptap/config.ini
 
+if "${taptap_log_level}" == "debug"
 bashio::log.debug `cat /etc/taptap/config.ini`
