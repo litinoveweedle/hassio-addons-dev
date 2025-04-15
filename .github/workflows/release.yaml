@@ -32,8 +32,10 @@ jobs:
         run: |
           declare -a changed_addons
           for addon in ${{ steps.addons.outputs.addons }}; do
-            if [[ "${{ inputs.addon }}" =~ ^${addon}$ ]]; then
-              changed_addons+=("\"${addon}\",");
+            if [[ "${{ inputs.addon }}" =~ ^${addon} ]]; then
+              if [[ ! "${changed_addons[@]}" =~ $addon ]] && 
+                changed_addons+=("\"${addon}\",");
+              fi
             fi
           done
 

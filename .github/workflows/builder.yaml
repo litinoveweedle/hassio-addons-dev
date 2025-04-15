@@ -44,16 +44,18 @@ jobs:
           declare -a changed_addons
           for addon in ${{ steps.addons.outputs.addons }}; do
             if [[ "${{ inputs.addon }}" != '' ]]; then
-              if [[ ! "${changed_addons[@]}" =~ $addon ]]; then
-                changed_addons+=("\"${addon}\",");
+              if [[ "${{ inputs.addon }}" =~ ^${addon} ]]; then
+                if [[ ! "${changed_addons[@]}" =~ $addon ]] && 
+                  changed_addons+=("\"${addon}\",");
+                fi
               fi
             elif [[ "${{ steps.changed-files.outputs.all_changed_files }}" =~ ^$addon/ ]]; then
               for file in ${{ env.MONITORED_FILES }}; do
-                  if [[ "${{ steps.changed-files.outputs.all_changed_files }}" =~ ^$addon/$file ]]; then
-                    if [[ ! "${changed_addons[@]}" =~ $addon ]]; then
-                      changed_addons+=("\"${addon}\",");
-                    fi
+                if [[ "${{ steps.changed-files.outputs.all_changed_files }}" =~ ^$addon/$file ]]; then
+                  if [[ ! "${changed_addons[@]}" =~ $addon ]]; then
+                    changed_addons+=("\"${addon}\",");
                   fi
+                fi
               done
             fi
           done
