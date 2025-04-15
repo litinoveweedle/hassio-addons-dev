@@ -58,4 +58,5 @@ bashio::var.json \
         -out /etc/taptap/config.ini
 
 if "${taptap_log_level}" == "debug"
-bashio::log.debug `cat /etc/taptap/config.ini`
+    cat /etc/taptap/config.ini
+fi
