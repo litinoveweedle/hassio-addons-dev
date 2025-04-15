@@ -2,10 +2,7 @@ name: Builder
 
 env:
   BUILD_ARGS: "--test"
-  MONITORED_FILES: |
-    */build.yaml 
-    */Dockerfile
-    */rootfs/**"
+  MONITORED_FILES: '*/build.yaml */Dockerfile */rootfs/**'
 
 on:
   push:
@@ -37,6 +34,7 @@ jobs:
         uses: tj-actions/changed-files@v46.0.5
         with:
           files: ${{ env.MONITORED_FILES }}
+          files_separator: ' '
 
       - name: Find add-on directories
         id: get_addons
