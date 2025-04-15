@@ -16,6 +16,7 @@ PASS =
 
 
 [TAPTAP]
+LOG_LEVEL = {{ .taptap_log_level }}
 BINARY = /usr/bin/taptap/taptap
 {{ if ne .taptap_serial "null" }}
 SERIAL = {{ .taptap_serial }} 
@@ -54,6 +55,7 @@ DISCOVERY_PREFIX = {{ .ha_discovery_prefix }}
 {{ else }}
 DISCOVERY_PREFIX = homeassistant
 {{ end }}
+DISCOVERY_LEGACY = false
 {{ if .ha_birth_topic }}
 BIRTH_TOPIC = {{ .ha_birth_topic }}
 {{ else }}

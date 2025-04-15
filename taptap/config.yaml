@@ -16,6 +16,7 @@ init: false
 uart: true
 usb: true
 options:
+  log_level: info
   mqtt_server: null
   mqtt_port: 1883
   mqtt_qos: 1
@@ -33,6 +34,7 @@ options:
   ha_discovery_prefix: homeassistant
   ha_birth_topic: homeassistant/status
 schema:
+  log_level: list(trace|debug|info|notice|warning|error|fatal)?
   mqtt_server: str
   mqtt_port: port
   mqtt_qos: int(0,2)

@@ -4,10 +4,29 @@
 # Li Tin O've Weedle Add-on: taptap
 # Configures TapTap to MQTT bridge
 # ==============================================================================
+declare log_level
 
 if ! bashio::fs.directory_exists /run/taptap; then
     mkdir -p /run/taptap
     chown -R taptap:taptap /run/taptap
+fi
+
+# Find the matching log level
+if bashio::config.has_value 'log_level'; then
+    case "$(bashio::string.lower "$(bashio::config 'log_level')")" in
+        all|trace|debug)
+            log_level="debug"
+            ;;
+        info|notice)
+            log_level="info"
+            ;;
+        warning)
+            log_level="warning"
+            ;;
+        error|fatal|off)
+            log_level="error"
+            ;;
+    esac
 fi
 
 # Generate taptap-mqtt configuration
@@ -18,6 +37,7 @@ bashio::var.json \
     mqtt_timeout "$(bashio::config 'mqtt_timeout')" \
     mqtt_user "$(bashio::config 'mqtt_user')" \
     mqtt_pass "$(bashio::config 'mqtt_pass')" \
+    taptap_log_level ${log_level} \
     taptap_serial "$(bashio::config 'taptap_serial')" \
     taptap_address "$(bashio::config 'taptap_address')" \
     taptap_port "$(bashio::config 'taptap_port')" \
