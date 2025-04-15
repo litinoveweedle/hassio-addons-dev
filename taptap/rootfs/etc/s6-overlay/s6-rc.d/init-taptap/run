@@ -57,6 +57,6 @@ bashio::var.json \
         -template /etc/taptap/config.gtpl \
         -out /etc/taptap/config.ini
 
-if "${taptap_log_level}" == "debug"
+if "${taptap_log_level}" == "debug"; then
     cat /etc/taptap/config.ini
 fi
