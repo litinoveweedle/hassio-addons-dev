@@ -70,6 +70,7 @@ Install TapTap addon in your Home Assistant
 TapTap add-on example configuration:
 
 ```yaml
+log_level: warning
 mqtt_server: 192.168.1.2
 mqtt_port: 1883
 mqtt_qos: 1
