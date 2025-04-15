@@ -45,7 +45,7 @@ jobs:
           for addon in ${{ steps.addons.outputs.addons }}; do
             if [[ "${{ inputs.addon }}" != '' ]]; then
               if [[ "${{ inputs.addon }}" =~ ^${addon} ]]; then
-                if [[ ! "${changed_addons[@]}" =~ $addon ]] && 
+                if [[ ! "${changed_addons[@]}" =~ $addon ]]; then
                   changed_addons+=("\"${addon}\",");
                 fi
               fi
