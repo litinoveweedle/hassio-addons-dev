@@ -30,8 +30,6 @@ if bashio::config.has_value 'log_level'; then
     esac
 fi
 
-bashio::log.debug "TapTap log level: ${taptap_log_level}"
-
 # Generate taptap-mqtt configuration
 bashio::var.json \
     mqtt_server "$(bashio::config 'mqtt_server')" \
@@ -56,7 +54,3 @@ bashio::var.json \
     | tempio \
         -template /etc/taptap/config.gtpl \
         -out /etc/taptap/config.ini
-
-if "${taptap_log_level}" == "debug"; then
-    cat /etc/taptap/config.ini
-fi
