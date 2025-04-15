@@ -32,7 +32,6 @@ jobs:
       - name: Get changed files
         id: changed_files
         uses: tj-actions/changed-files@v46.0.5
-        if: inputs.addon == ''
 
       - name: Find add-on directories
         id: addons
