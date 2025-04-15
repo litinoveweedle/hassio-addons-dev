@@ -2,7 +2,10 @@ name: Builder
 
 env:
   BUILD_ARGS: "--test"
-  MONITORED_FILES: "build.yaml Dockerfile rootfs"
+  MONITORED_FILES: |
+    */build.yaml 
+    */Dockerfile
+    */rootfs/**"
 
 on:
   push:
@@ -32,25 +35,27 @@ jobs:
       - name: Get changed files
         id: changed_files
         uses: tj-actions/changed-files@v46.0.5
+        with:
+          files: ${{ env.MONITORED_FILES }}
 
       - name: Find add-on directories
-        id: addons
+        id: get_addons
         uses: home-assistant/actions/helpers/find-addons@master
 
       - name: Get changed add-ons
         id: changed_addons
         run: |
           declare -a changed_addons
-          for addon in ${{ steps.addons.outputs.addons }}; do
-            if [[ "${{ inputs.addon }}" != '' ]]; then
+          for addon in ${{ steps.get_addons.outputs.addons }}; do
+            if [[ "${{ inputs.addon }}" != "" ]]; then
               if [[ "${{ inputs.addon }}" =~ ^${addon} ]]; then
                 if [[ ! "${changed_addons[@]}" =~ $addon ]]; then
                   changed_addons+=("\"${addon}\",");
                 fi
               fi
-            elif [[ "${{ steps.changed-files.outputs.all_changed_files }}" =~ ^$addon/ ]]; then
-              for file in ${{ env.MONITORED_FILES }}; do
-                if [[ "${{ steps.changed-files.outputs.all_changed_files }}" =~ ^$addon/$file ]]; then
+            else
+              for file in ${{ steps.changed_files.outputs.all_changed_files }}; do
+                if [[ $file =~ ^$addon/ ]]; then
                   if [[ ! "${changed_addons[@]}" =~ $addon ]]; then
                     changed_addons+=("\"${addon}\",");
                   fi

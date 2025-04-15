@@ -24,14 +24,14 @@ jobs:
         uses: actions/checkout@v4.2.2
         
       - name: Find add-on directories
-        id: addons
+        id: get_addons
         uses: home-assistant/actions/helpers/find-addons@master
 
       - name: Get changed add-ons
         id: changed_addons
         run: |
           declare -a changed_addons
-          for addon in ${{ steps.addons.outputs.addons }}; do
+          for addon in ${{ steps.get_addons.outputs.addons }}; do
             if [[ "${{ inputs.addon }}" =~ ^${addon} ]]; then
               if [[ ! "${changed_addons[@]}" =~ $addon ]]; then
                 changed_addons+=("\"${addon}\",");
