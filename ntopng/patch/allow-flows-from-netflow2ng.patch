@@ -1,18 +1,18 @@
 diff --git a/src/ZMQCollectorInterface.cpp b/src/ZMQCollectorInterface.cpp
-index 962c52247..9bec3b44b 100644
+index 962c522..9bec3b4 100644
 --- a/src/ZMQCollectorInterface.cpp
 +++ b/src/ZMQCollectorInterface.cpp
 @@ -547,7 +547,7 @@ void ZMQCollectorInterface::collect_flows() {
-            if (tlv_encoding)
-              recvStats.num_flows += parseTLVFlow(uncompressed, uncompressed_len,
-                                                  subscriber_id, msg_id, this);
--           else if(ntop->getPrefs()->is_pro_edition()) {
-+           else {
-              uncompressed[uncompressed_len] = '\0';
-              recvStats.num_flows += parseJSONFlow(uncompressed, uncompressed_len, subscriber_id, msg_id);
-            }
+ 	    if (tlv_encoding)
+ 	      recvStats.num_flows += parseTLVFlow(uncompressed, uncompressed_len,
+ 						  subscriber_id, msg_id, this);
+-	    else if(ntop->getPrefs()->is_pro_edition()) {
++	    else {
+ 	      uncompressed[uncompressed_len] = '\0';
+ 	      recvStats.num_flows += parseJSONFlow(uncompressed, uncompressed_len, subscriber_id, msg_id);
+ 	    }
 diff --git a/src/ZMQParserInterface.cpp b/src/ZMQParserInterface.cpp
-index 42e0d9f98..340dca1b0 100644
+index 42e0d9f..340dca1 100644
 --- a/src/ZMQParserInterface.cpp
 +++ b/src/ZMQParserInterface.cpp
 @@ -2452,7 +2452,6 @@ u_int8_t ZMQParserInterface::parseJSONFlow(const char *payload,
@@ -21,5 +21,5 @@ index 42e0d9f98..340dca1b0 100644
    */
 -  return(0);
  #endif
-
+ 
  #if 0
