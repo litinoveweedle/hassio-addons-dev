@@ -154,9 +154,9 @@ RUN cd nDPI \
     && make
 
 RUN cd ntopng \
+    && patch -p1 -i allow-flows-from-netflow2ng.patch \
     && ./autogen.sh \
     && ./configure \
-    && patch -p1 -i allow-flows-from-netflow2ng.patch \
     && make \
     && make install
 
