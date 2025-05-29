@@ -24,6 +24,7 @@ server {
         sub_filter_types *;
         # update prefix path
         sub_filter "/ntopng_prefix" "$http_x_ingress_path";
+        sub_filter "&#47;ntopng_prefix" "$http_x_ingress_path";
         sub_filter_once off;
     }
 }
