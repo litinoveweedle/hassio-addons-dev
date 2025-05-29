@@ -140,7 +140,7 @@ RUN sed -i -e's/ main/ main contrib/g' /etc/apt/sources.list.d/debian.sources \
 RUN git clone --depth 1 --branch ${NDPI_VERSION}-stable https://github.com/ntop/nDPI.git nDPI
 RUN git clone --depth 1 --branch ${NTOP_VERSION}-stable https://github.com/ntop/ntopng.git ntopng
 RUN git clone --depth 1 --branch v${NETFLOW2NG_VERSION} https://github.com/synfinatic/netflow2ng.git netflow2ng
-RUN wget https://github.com/user-attachments/files/20437536/allow-flows-from-netflow2ng.patch -O ntopng/allow-flows-from-netflow2ng.patch
+COPY patch/allow-flows-from-netflow2ng.patch ntopng/
 
 # Build all software
 RUN cd netflow2ng \
@@ -156,7 +156,7 @@ RUN cd nDPI \
 RUN cd ntopng \
     && ./autogen.sh \
     && ./configure \
-    && patch -p1 allow-flows-from-netflow2ng.patch \
+    && patch -p1 -i allow-flows-from-netflow2ng.patch \
     && make \
     && make install
 
