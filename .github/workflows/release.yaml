@@ -21,7 +21,7 @@ jobs:
       changed: ${{ steps.changed_addons.outputs.changed }}
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v4.3.0
         
       - name: Find add-on directories
         id: get_addons
@@ -63,7 +63,7 @@ jobs:
 
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4.2.2
+        uses: actions/checkout@v4.3.0
 
       - name: Get information
         id: info
@@ -86,7 +86,7 @@ jobs:
           fi
 
       - name: Login to GitHub Container Registry
-        uses: docker/login-action@v3.4.0
+        uses: docker/login-action@v3.6.0
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
@@ -94,7 +94,7 @@ jobs:
 
       - name: Build ${{ matrix.addon }} add-on
         if: steps.check.outputs.build_arch == 'true'
-        uses: home-assistant/builder@2025.03.0
+        uses: home-assistant/builder@2025.09.0
         with:
           args: |
             --${{ matrix.arch }} \
