@@ -16,19 +16,19 @@ configuration:
     description: Disable HA authentication when not using ingress. Permit to access addon without authorization!
   ntop_auth:
     name: ntop auth
-    description: If using ingress authentication you can disable ntop internal authentication
+    description: If using ingress authentication you can disable ntopng internal authentication
   custom_scripts:
     name: ntop custom scripts
-    description: Make ntop scripts accesible and writable in data/scripts directory
+    description: Make ntopng scripts accesible and writable in data/scripts directory
   dns_mode:
     name: ntop dns mode
     description: DNS addresses resolution mode
   local_net:
     name: local networks
     description: list of subnets which are considered local network
-  export_flows:
-    name: export flows
-    description: Expired flows will be stored in the given system (MySQL/MariaDB, ELK)
+  dump_flows:
+    name: dump flows
+    description: Dump expired flows (MySQL/MariaDB, ELK), see ntopng configuration options (https://www.ntop.org/guides/ntopng/cli_options/cli_options.html)
   geoip_account_id:
     name: geoip account id
     description: MaxMind GeoIp database account id (https://www.maxmind.com/en/accounts/current/license-key)
