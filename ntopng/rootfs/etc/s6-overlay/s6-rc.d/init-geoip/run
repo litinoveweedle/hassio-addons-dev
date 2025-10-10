@@ -19,7 +19,9 @@ if bashio::config.has_value 'geoip_account_id'; then
 
         # Update GeoIP database if older than 1 day
         count=$(find /data/geoip/*.mmdb -mtime -1 -print 2>/dev/null | wc -l)
-        if [ $count -ne 3 ]; then
+        if [ $count -eq 3 ]; then
+            bashio::log.info "Maxmind Database is up-to-date."
+        else
             bashio::log.info "Updating Maxmind Database..."
             /usr/bin/geoipupdate
             bashio::log.info "Maxmind Database updated."
