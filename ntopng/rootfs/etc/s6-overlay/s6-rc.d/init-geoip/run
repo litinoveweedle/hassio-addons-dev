@@ -13,13 +13,15 @@ if bashio::config.has_value 'geoip_account_id'; then
         echo -e "AccountID $(bashio::config 'geoip_account_id')\nLicenseKey $(bashio::config 'geoip_license_key')\nEditionIDs GeoLite2-ASN GeoLite2-City GeoLite2-Country\nDatabaseDirectory /data/geoip" > /etc/GeoIP.conf
 
         # Create GeoIP persistent directory
+        cnt=0
         if ! bashio::fs.directory_exists /data/geoip; then
             mkdir -p /data/geoip
+        else
+            cnt=$(find /data/geoip/*.mmdb -mtime -1 -print 2>/dev/null | wc -l)
         fi
 
         # Update GeoIP database if older than 1 day
-        count=$(find /data/geoip/*.mmdb -mtime -1 -print 2>/dev/null | wc -l)
-        if [ $count -eq 3 ]; then
+        if [[ "$cnt" -eq 3 ]]; then
             bashio::log.info "Maxmind Database is up-to-date."
         else
             bashio::log.info "Updating Maxmind Database..."
