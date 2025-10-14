@@ -16,21 +16,7 @@ if bashio::config.has_value 'geoip_account_id'; then
         cnt=0
         if ! bashio::fs.directory_exists /data/geoip; then
             mkdir -p /data/geoip
-        else
-            cnt=$(find /data/geoip/*.mmdb -mtime -1 -print 2>/dev/null | wc -l)
         fi
-
-        # Update GeoIP database if older than 1 day
-        if [[ "$cnt" -eq 3 ]]; then
-            bashio::log.info "Maxmind Database is up-to-date."
-        else
-            bashio::log.info "Updating Maxmind Database..."
-            /usr/bin/geoipupdate
-            bashio::log.info "Maxmind Database updated."
-        fi
-
-        # Signal to the the ntopng service, that database is ready
-        touch /data/geoip/.finished
     else
         bashio::log.warning "No Maxmind GeoIP license key was found, ntop will not support GeoIP lookups. Please get a license from maxmind.com and put it into configuration."
     fi
