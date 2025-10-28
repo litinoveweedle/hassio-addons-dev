@@ -30,6 +30,13 @@ if bashio::config.has_value 'log_level'; then
     esac
 fi
 
+if $(bashio::config.has_value 'taptap_modules_serials'); then
+    serials=""
+    for serial in $(bashio::config 'taptap_modules_serials'); do
+        serials+=$serial","
+    done
+fi
+
 # Generate taptap-mqtt configuration
 bashio::var.json \
     mqtt_server "$(bashio::config 'mqtt_server')" \
@@ -42,8 +49,7 @@ bashio::var.json \
     taptap_serial "$(bashio::config 'taptap_serial')" \
     taptap_address "$(bashio::config 'taptap_address')" \
     taptap_port "$(bashio::config 'taptap_port')" \
-    taptap_module_ids "$(bashio::config 'taptap_module_ids')" \
-    taptap_module_names "$(bashio::config 'taptap_module_names')" \
+    taptap_modules_serials "${serials%,}" \
     taptap_topic_prefix "$(bashio::config 'taptap_topic_prefix')" \
     taptap_topic_name "$(bashio::config 'taptap_topic_name')" \
     taptap_timeout "$(bashio::config 'taptap_timeout')" \
