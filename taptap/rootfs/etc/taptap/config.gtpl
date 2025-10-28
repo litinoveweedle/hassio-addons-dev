@@ -33,8 +33,7 @@ PORT = {{ .taptap_port }}
 {{ else }}
 PORT = 502
 {{ end }}
-MODULE_IDS = {{ .taptap_module_ids }}
-MODULE_NAMES = {{ .taptap_module_names }}
+MODULES_SERIALS = {{ .taptap_modules_serials }}
 TOPIC_PREFIX = {{ .taptap_topic_prefix }}
 TOPIC_NAME = {{ .taptap_topic_name }}
 {{ if .taptap_timeout }}
@@ -47,6 +46,7 @@ UPDATE = {{ .taptap_update }}
 {{ else }}
 UPDATE = 10
 {{ end }}
+PERSISTENT_FILE = /data/taptap.json
 
 
 [HA]
