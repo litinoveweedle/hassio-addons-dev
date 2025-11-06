@@ -46,7 +46,7 @@ UPDATE = {{ .taptap_update }}
 {{ else }}
 UPDATE = 10
 {{ end }}
-PERSISTENT_FILE = /data/taptap.json
+STATE_FILE = /data/taptap.json
 
 
 [HA]
@@ -70,4 +70,4 @@ ENTITY_AVAILABILITY = true
 
 [RUNTIME]
 MAX_ERROR = 0
-STATE_FILE = /run/taptap/taptap.state
+RUN_FILE = /run/taptap/taptap.state
