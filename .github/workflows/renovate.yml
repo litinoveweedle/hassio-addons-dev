@@ -28,7 +28,7 @@ jobs:
       - name: Validate Renovate JSON
         run: jq type .github/renovate.json
       - name: Self-hosted Renovate
-        uses: renovatebot/github-action@v43.0.20
+        uses: renovatebot/github-action@v44.0.0
         env:
           # Repository taken from variable to keep configuration file generic
           RENOVATE_REPOSITORIES: ${{ github.repository }}
