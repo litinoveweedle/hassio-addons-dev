@@ -24,8 +24,8 @@ options:
   mqtt_user: null
   mqtt_pass: null
   taptap_port: 502
-  taptap_topic_name: tigo
   taptap_modules_serials: null
+  taptap_topic_name: tigo
   taptap_topic_prefix: taptap
   taptap_update: 10
   taptap_timeout: 120
@@ -43,9 +43,9 @@ schema:
   taptap_serial: device(subsystem=tty)?
   taptap_address: str
   taptap_port: port
-  taptap_topic_name: match(^\w+$)
   taptap_modules_serials:
     - match(^\w+\s*\:\s*[0-9A-Z]\-[0-9A-Z]{7}$)
+  taptap_topic_name: match(^\w+$)
   taptap_topic_prefix: match((\w+)(\/\w+)*)
   taptap_update: int
   taptap_timeout: int
