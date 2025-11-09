@@ -8,7 +8,7 @@ declare taptap_log_level
 
 if ! bashio::fs.directory_exists /run/taptap; then
     mkdir -p /run/taptap
-    chown -R taptap:taptap /run/taptap
+    #chown -R taptap:taptap /run/taptap
 fi
 
 # Find the matching taptap log level
