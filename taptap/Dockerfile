@@ -55,7 +55,7 @@ RUN \
     && rm -Rf /tmp/*
 
 # Add user for taptap daemon
-RUN addgroup -S taptap && adduser -S taptap -G taptap -h /run/taptap -H
+#RUN addgroup -S taptap && adduser -S taptap -G taptap -h /run/taptap -H
 
 # Copy root filesystem
 COPY rootfs /
