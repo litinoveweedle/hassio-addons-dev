@@ -8,7 +8,6 @@ declare taptap_log_level
 
 if ! bashio::fs.directory_exists /run/taptap; then
     mkdir -p /run/taptap
-    chown -R taptap:taptap /run/taptap
 fi
 
 # Find the matching taptap log level
@@ -56,7 +55,12 @@ bashio::var.json \
     taptap_update "$(bashio::config 'taptap_update')" \
     ha_discovery_prefix "$(bashio::config 'ha_discovery_prefix')" \
     ha_birth_topic "$(bashio::config 'ha_birth_topic')" \
-    ha_entity_availability "$(bashio::config 'ha_entity_availability')" \
+    ha_node_availability_online "$(bashio::config 'ha_node_availability_online')" \
+    ha_node_availability_serial "$(bashio::config 'ha_node_availability_serial')" \
+    ha_stats_availability_online "$(bashio::config 'ha_stats_availability_online')" \
+    ha_stats_availability_serial "$(bashio::config 'ha_stats_availability_serial')" \
     | tempio \
         -template /etc/taptap/config.gtpl \
         -out /etc/taptap/config.ini
+
+bashio::log.info "Generated taptap-mqtt configuration."

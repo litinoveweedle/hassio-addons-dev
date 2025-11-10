@@ -61,10 +61,25 @@ BIRTH_TOPIC = {{ .ha_birth_topic }}
 {{ else }}
 BIRTH_TOPIC = homeassistant/status
 {{ end }}
-{{ if .ha_entity_availability }}
-ENTITY_AVAILABILITY = {{ .ha_entity_availability }}
+{{ if .ha_node_availability_online }}
+NODE_AVAILABILITY_ONLINE = {{ .ha_node_availability_online }}
 {{ else }}
-ENTITY_AVAILABILITY = true
+NODE_AVAILABILITY_ONLINE = true
+{{ end }}
+{{ if .ha_node_availability_serial }}
+NODE_AVAILABILITY_SERIAL = {{ .ha_node_availability_serial }}
+{{ else }}
+NODE_AVAILABILITY_SERIAL = false
+{{ end }}
+{{ if .ha_stats_availability_online }}
+STATS_AVAILABILITY_ONLINE = {{ .ha_stats_availability_online }}
+{{ else }}
+STATS_AVAILABILITY_ONLINE = false
+{{ end }}
+{{ if .ha_stats_availability_serial }}
+STATS_AVAILABILITY_SERIAL = {{ .ha_stats_availability_serial }}
+{{ else }}
+STATS_AVAILABILITY_SERIAL = false
 {{ end }}
 
 

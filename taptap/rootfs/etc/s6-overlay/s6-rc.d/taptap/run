@@ -8,4 +8,4 @@
 bashio::log.info "Starting taptap..."
 
 ## Run your program
-exec s6-setuidgid taptap /usr/bin/taptap/taptap-mqtt.py /etc/taptap/config.ini
+exec /usr/bin/taptap/taptap-mqtt.py /etc/taptap/config.ini
