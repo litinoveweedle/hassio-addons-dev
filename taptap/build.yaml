@@ -17,4 +17,4 @@ args:
   # renovate: datasource=github-releases depName=taptap packageName=litinoveweedle/taptap versioning=semver
   TAPTAP_VERSION: "0.2.6"
   # renovate: datasource=github-releases depName=taptap-mqtt packageName=litinoveweedle/taptap-mqtt versioning=semver
-  TAPTAP_MQTT_VERSION: "0.1.3"
+  TAPTAP_MQTT_VERSION: "0.1.4"
