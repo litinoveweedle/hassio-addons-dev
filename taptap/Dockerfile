@@ -24,12 +24,6 @@ RUN \
         TAPTAP_ARCH="musl-arm64"; \
     elif [ "${BUILD_ARCH}" = "amd64" ]; then \
         TAPTAP_ARCH="musl-x86_64"; \
-    elif [ "${BUILD_ARCH}" = "armhf" ]; then \
-        TAPTAP_ARCH="musleabihf-arm"; \
-    elif [ "${BUILD_ARCH}" = "armv7" ]; then \
-        TAPTAP_ARCH="musleabihf-armv7"; \
-    elif [ "${BUILD_ARCH}" = "i386" ]; then \
-        TAPTAP_ARCH="musl-i686"; \
     else \
         exit 1; \
     fi \
