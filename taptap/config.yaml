@@ -26,6 +26,8 @@ options:
   taptap_topic_prefix: taptap
   taptap_update: 10
   taptap_timeout: 180
+  ha_discovery_prefix: homeassistant
+  ha_birth_topic: homeassistant/status
   ha_nodes_availability_online: true
   ha_nodes_availability_identified: false
   ha_strings_availability_online: true
@@ -36,8 +38,6 @@ options:
     - energy_daily
   ha_stats_sensors_recorder:
     - energy_daily
-  ha_discovery_prefix: homeassistant
-  ha_birth_topic: homeassistant/status
 schema:
   log_level: list(trace|debug|info|notice|warning|error|fatal)?
   mqtt_server: str
@@ -55,6 +55,8 @@ schema:
   taptap_topic_prefix: match((\w+)(\/\w+)*)
   taptap_update: int
   taptap_timeout: int
+  ha_discovery_prefix: str
+  ha_birth_topic: str
   ha_nodes_availability_online: bool
   ha_nodes_availability_identified: bool
   ha_strings_availability_online: bool
@@ -67,5 +69,3 @@ schema:
     - match(^\w+$)?
   ha_stats_sensors_recorder:
     - match(^\w+$)?
-  ha_discovery_prefix: str
-  ha_birth_topic: str

@@ -91,6 +91,21 @@ STATS_AVAILABILITY_IDENTIFIED = {{ .ha_stats_availability_identified }}
 {{ else }}
 STATS_AVAILABILITY_IDENTIFIED = false
 {{ end }}
+{{ if .ha_nodes_sensors_recorder }}
+NODES_SENSORS_RECORDER = {{ .ha_nodes_sensors_recorder }}
+{{ else }}
+NODES_SENSORS_RECORDER =
+{{ end }}
+{{ if .ha_strings_sensors_recorder }}
+STRINGS_SENSORS_RECORDER = {{ .ha_strings_sensors_recorder }}
+{{ else }}
+STRINGS_SENSORS_RECORDER =
+{{ end }}
+{{ if .ha_stats_sensors_recorder }}
+STATS_SENSORS_RECORDER = {{ .ha_stats_sensors_recorder }}
+{{ else }}
+STATS_SENSORS_RECORDER =
+{{ end }}
 
 
 [RUNTIME]
