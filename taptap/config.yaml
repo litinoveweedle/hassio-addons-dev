@@ -62,10 +62,10 @@ schema:
   ha_stats_availability_online: bool
   ha_stats_availability_identified: bool
   ha_nodes_sensors_recorder:
-    - match(^\w+$)
+    - match(^\w+$)?
   ha_strings_sensors_recorder:
-    - match(^\w+$)
+    - match(^\w+$)?
   ha_stats_sensors_recorder:
-    - match(^\w+$)
+    - match(^\w+$)?
   ha_discovery_prefix: str
   ha_birth_topic: str
