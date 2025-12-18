@@ -31,7 +31,7 @@ jobs:
 
       - name: Get changed files
         id: changed_files
-        uses: tj-actions/changed-files@v47.0.0
+        uses: tj-actions/changed-files@v47.0.1
         with:
           files: ${{ env.MONITORED_FILES }}
           files_separator: ' '
