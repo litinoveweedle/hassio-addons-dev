@@ -5,6 +5,7 @@
 # Configures TapTap to MQTT bridge
 # ==============================================================================
 declare taptap_log_level
+declare taptap_modules
 
 if ! bashio::fs.directory_exists /run/taptap; then
     mkdir -p /run/taptap
@@ -29,10 +30,10 @@ if bashio::config.has_value 'log_level'; then
     esac
 fi
 
+taptap_modules=""
 if $(bashio::config.has_value 'taptap_modules'); then
-    serials=""
-    for serial in $(bashio::config 'taptap_modules'); do
-        serials+=$serial","
+    for module in $(bashio::config 'taptap_modules'); do
+        taptap_modules+=$module","
     done
 fi
 
@@ -48,7 +49,7 @@ bashio::var.json \
     taptap_serial "$(bashio::config 'taptap_serial')" \
     taptap_address "$(bashio::config 'taptap_address')" \
     taptap_port "$(bashio::config 'taptap_port')" \
-    taptap_modules "${serials%,}" \
+    taptap_modules "${taptap_modules%,}" \
     taptap_topic_prefix "$(bashio::config 'taptap_topic_prefix')" \
     taptap_topic_name "$(bashio::config 'taptap_topic_name')" \
     taptap_timeout "$(bashio::config 'taptap_timeout')" \
