@@ -4,10 +4,6 @@ build_from:
   aarch64: "ghcr.io/hassio-addons/debian-base/aarch64:7.8.3"
   # renovate: datasource=github-releases depName=hassio-addon-debian-base packageName=hassio-addons/addon-debian-base versioning=semver
   amd64: "ghcr.io/hassio-addons/debian-base/amd64:7.8.3"
-  # renovate: datasource=github-releases depName=hassio-addon-debian-base packageName=hassio-addons/addon-debian-base versioning=semver
-  armv7: "ghcr.io/hassio-addons/debian-base/armv7:7.8.3"
-  # renovate: datasource=github-releases depName=hassio-addon-debian-base packageName=hassio-addons/addon-debian-base versioning=semver
-  i386: "ghcr.io/hassio-addons/debian-base/i386:7.8.3"
 
 args:
   BUILD_REPO: litinoveweedle/hassio-addons-dev
