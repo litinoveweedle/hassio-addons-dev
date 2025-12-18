@@ -33,7 +33,7 @@ PORT = {{ .taptap_port }}
 {{ else }}
 PORT = 502
 {{ end }}
-MODULES_SERIALS = {{ .taptap_modules_serials }}
+MODULES = {{ .taptap_modules }}
 TOPIC_PREFIX = {{ .taptap_topic_prefix }}
 TOPIC_NAME = {{ .taptap_topic_name }}
 {{ if .taptap_timeout }}
@@ -61,25 +61,35 @@ BIRTH_TOPIC = {{ .ha_birth_topic }}
 {{ else }}
 BIRTH_TOPIC = homeassistant/status
 {{ end }}
-{{ if .ha_node_availability_online }}
-NODE_AVAILABILITY_ONLINE = {{ .ha_node_availability_online }}
+{{ if .ha_nodes_availability_online }}
+NODES_AVAILABILITY_ONLINE = {{ .ha_nodes_availability_online }}
 {{ else }}
-NODE_AVAILABILITY_ONLINE = true
+NODES_AVAILABILITY_ONLINE = true
 {{ end }}
-{{ if .ha_node_availability_serial }}
-NODE_AVAILABILITY_SERIAL = {{ .ha_node_availability_serial }}
+{{ if .ha_nodes_availability_identified }}
+NODES_AVAILABILITY_IDENTIFIED = {{ .ha_nodes_availability_identified }}
 {{ else }}
-NODE_AVAILABILITY_SERIAL = false
+NODES_AVAILABILITY_IDENTIFIED = false
+{{ end }}
+{{ if .ha_strings_availability_online }}
+STRINGS_AVAILABILITY_ONLINE = {{ .ha_strings_availability_online }}
+{{ else }}
+STRINGS_AVAILABILITY_ONLINE = true
+{{ end }}
+{{ if .ha_strings_availability_identified }}
+STRINGS_AVAILABILITY_IDENTIFIED = {{ .ha_strings_availability_identified }}
+{{ else }}
+STRINGS_AVAILABILITY_IDENTIFIED = false
 {{ end }}
 {{ if .ha_stats_availability_online }}
 STATS_AVAILABILITY_ONLINE = {{ .ha_stats_availability_online }}
 {{ else }}
 STATS_AVAILABILITY_ONLINE = false
 {{ end }}
-{{ if .ha_stats_availability_serial }}
-STATS_AVAILABILITY_SERIAL = {{ .ha_stats_availability_serial }}
+{{ if .ha_stats_availability_identified }}
+STATS_AVAILABILITY_IDENTIFIED = {{ .ha_stats_availability_identified }}
 {{ else }}
-STATS_AVAILABILITY_SERIAL = false
+STATS_AVAILABILITY_IDENTIFIED = false
 {{ end }}
 
 

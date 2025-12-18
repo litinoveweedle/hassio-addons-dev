@@ -5,6 +5,7 @@
 # Configures TapTap to MQTT bridge
 # ==============================================================================
 declare taptap_log_level
+declare taptap_modules
 
 if ! bashio::fs.directory_exists /run/taptap; then
     mkdir -p /run/taptap
@@ -29,10 +30,10 @@ if bashio::config.has_value 'log_level'; then
     esac
 fi
 
-if $(bashio::config.has_value 'taptap_modules_serials'); then
-    serials=""
-    for serial in $(bashio::config 'taptap_modules_serials'); do
-        serials+=$serial","
+taptap_modules=""
+if $(bashio::config.has_value 'taptap_modules'); then
+    for module in $(bashio::config 'taptap_modules'); do
+        taptap_modules+=$module","
     done
 fi
 
@@ -48,17 +49,22 @@ bashio::var.json \
     taptap_serial "$(bashio::config 'taptap_serial')" \
     taptap_address "$(bashio::config 'taptap_address')" \
     taptap_port "$(bashio::config 'taptap_port')" \
-    taptap_modules_serials "${serials%,}" \
+    taptap_modules "${taptap_modules%,}" \
     taptap_topic_prefix "$(bashio::config 'taptap_topic_prefix')" \
     taptap_topic_name "$(bashio::config 'taptap_topic_name')" \
     taptap_timeout "$(bashio::config 'taptap_timeout')" \
     taptap_update "$(bashio::config 'taptap_update')" \
     ha_discovery_prefix "$(bashio::config 'ha_discovery_prefix')" \
     ha_birth_topic "$(bashio::config 'ha_birth_topic')" \
-    ha_node_availability_online "$(bashio::config 'ha_node_availability_online')" \
-    ha_node_availability_serial "$(bashio::config 'ha_node_availability_serial')" \
+    ha_nodes_availability_online "$(bashio::config 'ha_nodes_availability_online')" \
+    ha_nodes_availability_identified "$(bashio::config 'ha_nodes_availability_identified')" \
+    ha_strings_availability_online "$(bashio::config 'ha_strings_availability_online')" \
+    ha_strings_availability_identified "$(bashio::config 'ha_strings_availability_identified')" \
     ha_stats_availability_online "$(bashio::config 'ha_stats_availability_online')" \
-    ha_stats_availability_serial "$(bashio::config 'ha_stats_availability_serial')" \
+    ha_stats_availability_identified "$(bashio::config 'ha_stats_availability_identified')" \
+    ha_nodes_sensors_recorder "$(bashio::config 'ha_nodes_sensors_recorder')" \
+    ha_strings_sensors_recorder "$(bashio::config 'ha_strings_sensors_recorder')" \
+    ha_stats_sensors_recorder "$(bashio::config 'ha_stats_sensors_recorder')" \
     | tempio \
         -template /etc/taptap/config.gtpl \
         -out /etc/taptap/config.ini
