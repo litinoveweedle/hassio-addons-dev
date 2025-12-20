@@ -13,4 +13,4 @@ args:
   # renovate: datasource=github-releases depName=ntop-ntopng packageName=ntop/ntopng versioning=semver-coerced
   NTOP_VERSION: "6.4"
   # renovate: datasource=github-releases depName=netflow2ng packageName=synfinatic/netflow2ng versioning=semver
-  NETFLOW2NG_VERSION: "0.0.5"
+  NETFLOW2NG_VERSION: "0.1.0"
