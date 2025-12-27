@@ -37,6 +37,28 @@ if $(bashio::config.has_value 'taptap_modules'); then
     done
 fi
 
+ha_nodes_sensors_recorder=""
+if $(bashio::config.has_value 'ha_nodes_sensors_recorder'); then
+    for sensor in $(bashio::config 'ha_nodes_sensors_recorder'); do
+        ha_nodes_sensors_recorder+=$sensor","
+    done
+fi
+
+ha_strings_sensors_recorder=""
+if $(bashio::config.has_value 'ha_strings_sensors_recorder'); then
+    for sensor in $(bashio::config 'ha_strings_sensors_recorder'); do
+        ha_strings_sensors_recorder+=$sensor","
+    done
+fi
+
+ha_stats_sensors_recorder=""
+if $(bashio::config.has_value 'ha_stats_sensors_recorder'); then
+    for sensor in $(bashio::config 'ha_stats_sensors_recorder'); do
+        ha_stats_sensors_recorder+=$sensor","
+    done
+fi
+
+
 # Generate taptap-mqtt configuration
 bashio::var.json \
     mqtt_server "$(bashio::config 'mqtt_server')" \
@@ -62,9 +84,9 @@ bashio::var.json \
     ha_strings_availability_identified "$(bashio::config 'ha_strings_availability_identified')" \
     ha_stats_availability_online "$(bashio::config 'ha_stats_availability_online')" \
     ha_stats_availability_identified "$(bashio::config 'ha_stats_availability_identified')" \
-    ha_nodes_sensors_recorder "$(bashio::config 'ha_nodes_sensors_recorder')" \
-    ha_strings_sensors_recorder "$(bashio::config 'ha_strings_sensors_recorder')" \
-    ha_stats_sensors_recorder "$(bashio::config 'ha_stats_sensors_recorder')" \
+    ha_nodes_sensors_recorder "${ha_nodes_sensors_recorder%,}" \
+    ha_strings_sensors_recorder "${ha_strings_sensors_recorder%,}" \
+    ha_stats_sensors_recorder "${ha_stats_sensors_recorder%,}" \
     | tempio \
         -template /etc/taptap/config.gtpl \
         -out /etc/taptap/config.ini
