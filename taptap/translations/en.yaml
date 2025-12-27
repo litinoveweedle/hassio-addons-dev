@@ -31,17 +31,7 @@ configuration:
     description: If you use Modbus to Ethernet convertor connected to Home assistant server this will be its TCP port, default is '502'.
   taptap_modules:
     name: Tigo modules strings name, modules names and serial numbers
-    description: |
-      <p>Tigo modules strings name, modules names and serial numbers as triplets of:<br>
-       - module STRING name as defined by user (optional), can have [a-z, A-Z, 0-9, _] characters<br>
-       - module NAME as defined by user, can have [a-z, A-Z, 0-9, _] characters<br>
-       - module SERIAL number as found on the modules barcode stickers or in the Tigo cloud (optional),in the X-XXXXXX format.<br>
-      with resulting format as STRING1:NAME1:SERIAL1, STRING1:NAME2:SERIAL2, STRING2:NAME3:SERIAL3, ...</p>
-      <p>- If STRING is not defined/exists all modules will be considered in tha same string; in this case use format :NAME1:SERIAL1, :NAME2:SERIAL2, ...<br>
-      - If SERIAL is not defined/known discovered module will be assigned to randomly picked defined module NAME; in this case use format STRING1:NAME1:, STRING1:NAME2:, STRING2:NAME3:, ...<br>
-      - If both STRING and SERIAL names are not defined/known use following format: :NAME1:, :NAME2:, :NAME3:, ...</p>
-      <p>Program will log any unknown serial number so you can use it to discover serials if you do not know them.
-      Be aware that messages with serial numbers are emitted by the Tigo GW rarely, very often only during night time! Wait as lest 24hrs for the complete discovery!</p>
+    description: Tigo modules string name, module names and serial number in the [STRING]:NAME:[SERIAL] format. Please see Documentation for detailed explanation.
   taptap_topic_name:
     name: MQTT topic and device name
     description: Name to be used as device name in the Home Assistant, default is 'tigo'. This will be also used as MQTT topic (together with topic prefix) to post messages on MQTT to Home Assistant.
