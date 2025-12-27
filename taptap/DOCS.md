@@ -80,10 +80,10 @@ mqtt_timeout: 5
 mqtt_user: mqttuser
 mqtt_pass: mqttpass
 taptap_port: 502
-taptap_modules_serials:
-  - A01:X-AAAAAA
-  - A02:X-AAAAAAB
-  - A03:X-AAAAAAC
+taptap_modules:
+  - "A:01:X-AAAAAAA"
+  - "A:02:X-AAAAAAB"
+  - "B:01:X-AAAAAAC"
   - .....
 taptap_topic_name: tigo
 taptap_topic_prefix: taptap
