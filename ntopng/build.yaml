@@ -9,8 +9,8 @@ args:
   BUILD_REPO: litinoveweedle/hassio-addons-dev
   BUILD_DESCRIPTION: "hassio ntop addon"
   # renovate: datasource=github-releases depName=ntop-ndpi packageName=ntop/nDPI versioning=semver-coerced
-  NDPI_VERSION: "4.14"
+  NDPI_VERSION: "5.0"
   # renovate: datasource=github-releases depName=ntop-ntopng packageName=ntop/ntopng versioning=semver-coerced
-  NTOP_VERSION: "6.4"
+  NTOP_VERSION: "6.6"
   # renovate: datasource=github-releases depName=netflow2ng packageName=synfinatic/netflow2ng versioning=semver
   NETFLOW2NG_VERSION: "0.0.5"
