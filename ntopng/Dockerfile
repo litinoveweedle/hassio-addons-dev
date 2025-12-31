@@ -61,6 +61,7 @@ RUN sed -i -e's/ main/ main contrib/g' /etc/apt/sources.list.d/debian.sources \
     libpcre2-16-0 \
     libpcre2-32-0 \
     libpcre2-posix3 \
+    libprotoc32t64 \
     libradcli4 \
     librrd8 \
     libsensors-config \
@@ -134,6 +135,9 @@ RUN sed -i -e's/ main/ main contrib/g' /etc/apt/sources.list.d/debian.sources \
     libzmq3-dev \
     libnl-genl-3-dev \
     libgcrypt20-dev \
+    protobuf-compiler \
+    protoc-gen-go \
+    libprotobuf-dev \
     zlib1g-dev 
 
 # download source code
@@ -146,6 +150,7 @@ RUN git clone --depth 1 https://github.com/synfinatic/netflow2ng.git netflow2ng
 
 # Build all software
 RUN cd netflow2ng \
+    && go mod download \
     && make \
     && cp dist/netflow2ng-* /usr/local/bin/netflow2ng \
     && chmod +x /usr/local/bin/netflow2ng
