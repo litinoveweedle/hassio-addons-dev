@@ -40,7 +40,7 @@ RUN sed -i -e's/ main/ main contrib/g' /etc/apt/sources.list.d/debian.sources \
     libgssrpc4 \
     libharfbuzz-gobject0 \
     libharfbuzz-icu0 \
-    libhiredis0.14 \
+    libhiredis1.1.0 \
     libice6 \
     libjson-c5 \
     libkadm5clnt-mit12 \
@@ -139,8 +139,10 @@ RUN sed -i -e's/ main/ main contrib/g' /etc/apt/sources.list.d/debian.sources \
 # download source code
 RUN git clone --depth 1 --branch ${NDPI_VERSION}-stable https://github.com/ntop/nDPI.git nDPI
 RUN git clone --depth 1 --branch ${NTOP_VERSION}-stable https://github.com/ntop/ntopng.git ntopng
-RUN git clone --depth 1 --branch v${NETFLOW2NG_VERSION} https://github.com/synfinatic/netflow2ng.git netflow2ng
-COPY patch/allow-flows-from-netflow2ng.patch ntopng/
+RUN git clone --depth 1 https://github.com/synfinatic/netflow2ng.git netflow2ng
+#RUN git clone --depth 1 --branch v${NETFLOW2NG_VERSION} https://github.com/synfinatic/netflow2ng.git netflow2ng
+
+#COPY patch/allow-flows-from-netflow2ng.patch ntopng/
 
 # Build all software
 RUN cd netflow2ng \
@@ -154,7 +156,7 @@ RUN cd nDPI \
     && make
 
 RUN cd ntopng \
-    && patch -p1 -i allow-flows-from-netflow2ng.patch \
+#    && patch -p1 -i allow-flows-from-netflow2ng.patch \
     && ./autogen.sh \
     && ./configure \
     && make \
