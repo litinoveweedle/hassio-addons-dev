@@ -40,7 +40,7 @@ RUN sed -i -e's/ main/ main contrib/g' /etc/apt/sources.list.d/debian.sources \
     libgssrpc4 \
     libharfbuzz-gobject0 \
     libharfbuzz-icu0 \
-    libhiredis0.14 \
+    libhiredis1.1.0 \
     libice6 \
     libjson-c5 \
     libkadm5clnt-mit12 \
