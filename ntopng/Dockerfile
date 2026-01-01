@@ -98,7 +98,6 @@ RUN sed -i -e's/ main/ main contrib/g' /etc/apt/sources.list.d/debian.sources \
     && apt-get install -y --no-install-recommends \
     vim \
     wget \
-    patch \
     git \
     jq \
     build-essential \
@@ -146,8 +145,6 @@ RUN git clone --depth 1 --branch ${NTOP_VERSION}-stable https://github.com/ntop/
 RUN git clone --depth 1 https://github.com/synfinatic/netflow2ng.git netflow2ng
 #RUN git clone --depth 1 --branch v${NETFLOW2NG_VERSION} https://github.com/synfinatic/netflow2ng.git netflow2ng
 
-#COPY patch/allow-flows-from-netflow2ng.patch ntopng/
-
 # Build all software
 RUN cd netflow2ng \
     && go mod download \
@@ -161,7 +158,6 @@ RUN cd nDPI \
     && make
 
 RUN cd ntopng \
-#    && patch -p1 -i allow-flows-from-netflow2ng.patch \
     && ./autogen.sh \
     && ./configure \
     && make \
