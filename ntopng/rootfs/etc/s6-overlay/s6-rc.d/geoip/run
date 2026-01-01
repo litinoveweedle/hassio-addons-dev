@@ -11,15 +11,15 @@ do
     if bashio::fs.file_exists /etc/GeoIP.conf; then
         cnt=$(find /data/geoip/*.mmdb -mtime -1 -print 2>/dev/null | wc -l)
 
-        # Update GeoIP database if id doesn't exist or is older than 1 day
+        # Update GeoIP database if doesn't exist or is older then 1 day
         if [[ "$cnt" -eq 3 ]]; then
             bashio::log.info "Maxmind Database is up-to-date."
         else
-            rm -f /data/geoip/.finished
+            exec s6-setuidgid geoip geoip "rm -f /var/run/geoip/finished"
             bashio::log.info "Updating Maxmind Database..."
-            /usr/bin/geoipupdate
+            exec s6-setuidgid geoip geoip /usr/bin/geoipupdate
             bashio::log.info "Maxmind Database updated."
-            touch /data/geoip/.finished
+            exec s6-setuidgid geoip geoip "touch /var/run/geoip/finished"
         fi
     fi
     sleep 21600

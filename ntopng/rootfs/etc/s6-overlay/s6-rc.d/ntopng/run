@@ -31,7 +31,7 @@ done
 if bashio::fs.file_exists /etc/GeoIP.conf; then
     bashio::log.info "ntopng is waiting until geoipupdate download database..."
     for i in {1800..0}; do
-        if bashio::fs.file_exists /data/geoip/.finished; then
+        if bashio::fs.file_exists /var/run/geoip/finished; then
             break;
         fi
         sleep 5
