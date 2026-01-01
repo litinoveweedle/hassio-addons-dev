@@ -33,8 +33,7 @@ PORT = {{ .taptap_port }}
 {{ else }}
 PORT = 502
 {{ end }}
-MODULE_IDS = {{ .taptap_module_ids }}
-MODULE_NAMES = {{ .taptap_module_names }}
+MODULES = {{ .taptap_modules }}
 TOPIC_PREFIX = {{ .taptap_topic_prefix }}
 TOPIC_NAME = {{ .taptap_topic_name }}
 {{ if .taptap_timeout }}
@@ -47,6 +46,7 @@ UPDATE = {{ .taptap_update }}
 {{ else }}
 UPDATE = 10
 {{ end }}
+STATE_FILE = /data/taptap.json
 
 
 [HA]
@@ -61,13 +61,53 @@ BIRTH_TOPIC = {{ .ha_birth_topic }}
 {{ else }}
 BIRTH_TOPIC = homeassistant/status
 {{ end }}
-{{ if .ha_entity_availability }}
-ENTITY_AVAILABILITY = {{ .ha_entity_availability }}
+{{ if .ha_nodes_availability_online }}
+NODES_AVAILABILITY_ONLINE = {{ .ha_nodes_availability_online }}
 {{ else }}
-ENTITY_AVAILABILITY = true
+NODES_AVAILABILITY_ONLINE = true
+{{ end }}
+{{ if .ha_nodes_availability_identified }}
+NODES_AVAILABILITY_IDENTIFIED = {{ .ha_nodes_availability_identified }}
+{{ else }}
+NODES_AVAILABILITY_IDENTIFIED = false
+{{ end }}
+{{ if .ha_strings_availability_online }}
+STRINGS_AVAILABILITY_ONLINE = {{ .ha_strings_availability_online }}
+{{ else }}
+STRINGS_AVAILABILITY_ONLINE = true
+{{ end }}
+{{ if .ha_strings_availability_identified }}
+STRINGS_AVAILABILITY_IDENTIFIED = {{ .ha_strings_availability_identified }}
+{{ else }}
+STRINGS_AVAILABILITY_IDENTIFIED = false
+{{ end }}
+{{ if .ha_stats_availability_online }}
+STATS_AVAILABILITY_ONLINE = {{ .ha_stats_availability_online }}
+{{ else }}
+STATS_AVAILABILITY_ONLINE = false
+{{ end }}
+{{ if .ha_stats_availability_identified }}
+STATS_AVAILABILITY_IDENTIFIED = {{ .ha_stats_availability_identified }}
+{{ else }}
+STATS_AVAILABILITY_IDENTIFIED = false
+{{ end }}
+{{ if .ha_nodes_sensors_recorder }}
+NODES_SENSORS_RECORDER = {{ .ha_nodes_sensors_recorder }}
+{{ else }}
+NODES_SENSORS_RECORDER =
+{{ end }}
+{{ if .ha_strings_sensors_recorder }}
+STRINGS_SENSORS_RECORDER = {{ .ha_strings_sensors_recorder }}
+{{ else }}
+STRINGS_SENSORS_RECORDER =
+{{ end }}
+{{ if .ha_stats_sensors_recorder }}
+STATS_SENSORS_RECORDER = {{ .ha_stats_sensors_recorder }}
+{{ else }}
+STATS_SENSORS_RECORDER =
 {{ end }}
 
 
 [RUNTIME]
 MAX_ERROR = 0
-STATE_FILE = /run/taptap/taptap.state
+RUN_FILE = /run/taptap/taptap.state

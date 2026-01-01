@@ -15,7 +15,7 @@
         "/^[\\w-]+/build\\.yaml$/"
       ],
       "matchStrings": [
-        "# renovate: datasource=(?<datasource>[a-z-]+?)(?: depName=(?<depName>.+?))? packageName=(?<packageName>[\\w/-]+?)(?: versioning=(?<versioning>[a-z-]+?))?\\s.+?(aarch64|amd64|armhf|armv7|i386):\\s+?\"?.+?(aarch64|amd64|armhf|armv7|i386):(?<currentValue>[0-9\\.]*)\"?\\s?"
+        "# renovate: datasource=(?<datasource>[a-z-]+?)(?: depName=(?<depName>.+?))? packageName=(?<packageName>[\\w/-]+?)(?: versioning=(?<versioning>[a-z-]+?))?\\s.+?(aarch64|amd64):\\s+?\"?.+?(aarch64|amd64):(?<currentValue>[0-9\\.]*)\"?\\s?"
       ]
     },
     {

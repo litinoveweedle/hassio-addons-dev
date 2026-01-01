@@ -24,12 +24,6 @@ RUN \
         TAPTAP_ARCH="musl-arm64"; \
     elif [ "${BUILD_ARCH}" = "amd64" ]; then \
         TAPTAP_ARCH="musl-x86_64"; \
-    elif [ "${BUILD_ARCH}" = "armhf" ]; then \
-        TAPTAP_ARCH="musleabihf-arm"; \
-    elif [ "${BUILD_ARCH}" = "armv7" ]; then \
-        TAPTAP_ARCH="musleabihf-armv7"; \
-    elif [ "${BUILD_ARCH}" = "i386" ]; then \
-        TAPTAP_ARCH="musl-i686"; \
     else \
         exit 1; \
     fi \
@@ -53,9 +47,6 @@ RUN \
     && chmod 755 /usr/bin/taptap/taptap-mqtt.py \
     && pip install -r taptap-mqtt-*/requirements.txt \
     && rm -Rf /tmp/*
-
-# Add user for taptap daemon
-RUN addgroup -S taptap && adduser -S taptap -G taptap -h /run/taptap -H
 
 # Copy root filesystem
 COPY rootfs /
