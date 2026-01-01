@@ -61,6 +61,7 @@ RUN sed -i -e's/ main/ main contrib/g' /etc/apt/sources.list.d/debian.sources \
     libpcre2-16-0 \
     libpcre2-32-0 \
     libpcre2-posix3 \
+    libprotoc32t64 \
     libradcli4 \
     librrd8 \
     libsensors-config \
@@ -97,7 +98,6 @@ RUN sed -i -e's/ main/ main contrib/g' /etc/apt/sources.list.d/debian.sources \
     && apt-get install -y --no-install-recommends \
     vim \
     wget \
-    patch \
     git \
     jq \
     build-essential \
@@ -134,16 +134,20 @@ RUN sed -i -e's/ main/ main contrib/g' /etc/apt/sources.list.d/debian.sources \
     libzmq3-dev \
     libnl-genl-3-dev \
     libgcrypt20-dev \
+    protobuf-compiler \
+    protoc-gen-go \
+    libprotobuf-dev \
     zlib1g-dev 
 
 # download source code
 RUN git clone --depth 1 --branch ${NDPI_VERSION}-stable https://github.com/ntop/nDPI.git nDPI
 RUN git clone --depth 1 --branch ${NTOP_VERSION}-stable https://github.com/ntop/ntopng.git ntopng
-RUN git clone --depth 1 --branch v${NETFLOW2NG_VERSION} https://github.com/synfinatic/netflow2ng.git netflow2ng
-COPY patch/allow-flows-from-netflow2ng.patch ntopng/
+RUN git clone --depth 1 https://github.com/synfinatic/netflow2ng.git netflow2ng
+#RUN git clone --depth 1 --branch v${NETFLOW2NG_VERSION} https://github.com/synfinatic/netflow2ng.git netflow2ng
 
 # Build all software
 RUN cd netflow2ng \
+    && go mod download \
     && make \
     && cp dist/netflow2ng-* /usr/local/bin/netflow2ng \
     && chmod +x /usr/local/bin/netflow2ng
@@ -154,7 +158,6 @@ RUN cd nDPI \
     && make
 
 RUN cd ntopng \
-    && patch -p1 -i allow-flows-from-netflow2ng.patch \
     && ./autogen.sh \
     && ./configure \
     && make \
@@ -177,7 +180,8 @@ COPY --from=stage2 /usr/local/bin/ntopng /usr/local/bin/ntopng
 COPY --from=stage2 /usr/local/share/ntopng /usr/local/share/ntopng
 
 RUN useradd -r -m -d /var/run/netflow -s /bin/false netflow \
-    && useradd -r -m -d /var/run/ntop -s /bin/false ntopng
+    && useradd -r -m -d /var/run/ntop -s /bin/false ntopng \ 
+    && useradd -r -m -d /var/run/geoip -s /bin/false geoip
 
 # Copy root filesystem
 COPY rootfs /
