@@ -48,13 +48,13 @@ RUN sed -i -e's/ main/ main contrib/g' /etc/apt/sources.list.d/debian.sources \
     libkdb5-10 \
     libltdl7 \
     liblzo2-2 \
-    libmariadb3 \
     libmaxminddb0 \
     libncurses6 \
     libnetfilter-conntrack3 \
     libnetfilter-queue1 \
     libnetsnmptrapd40 \
     libnfnetlink0 \
+    libnats3.10 \
     libopts25 \
     libpangoxft-1.0-0 \
     libpcap0.8 \
@@ -63,6 +63,7 @@ RUN sed -i -e's/ main/ main contrib/g' /etc/apt/sources.list.d/debian.sources \
     libpcre2-posix3 \
     libprotoc32t64 \
     libradcli4 \
+    librdkafka1 \
     librrd8 \
     libsensors-config \
     libsensors5 \
@@ -73,13 +74,15 @@ RUN sed -i -e's/ main/ main contrib/g' /etc/apt/sources.list.d/debian.sources \
     libssl3 \
     libxft2 \
     libzmq5 \
+    libzstd1 \
     && apt-get clean \
     && rm -Rf \
     /tmp/* \
     /etc/nginx \
     /etc/GeoIP.conf \
     /var/{cache,log}/* \
-    /var/lib/apt/lists/*
+    /var/lib/apt/lists/* \
+    /var/tmp/*
 
 FROM stage1 AS stage2
 
@@ -105,6 +108,7 @@ RUN sed -i -e's/ main/ main contrib/g' /etc/apt/sources.list.d/debian.sources \
     flex \
     libtool \
     libtool-bin \
+    npm \
     autoconf \
     pkg-config \
     automake \
@@ -116,7 +120,6 @@ RUN sed -i -e's/ main/ main contrib/g' /etc/apt/sources.list.d/debian.sources \
     libpcap-dev \
     libsqlite3-dev \
     libhiredis-dev \
-    libmariadb-dev \
     libmaxminddb-dev \
     libcurl4-openssl-dev \
     libpango1.0-dev \
@@ -131,13 +134,20 @@ RUN sed -i -e's/ main/ main contrib/g' /etc/apt/sources.list.d/debian.sources \
     libexpat1-dev \
     libsnmp-dev \
     libradcli-dev \
-    libzmq3-dev \
+    librdkafka-dev \
     libnl-genl-3-dev \
+    libnats-dev \
     libgcrypt20-dev \
+    libzmq3-dev \
+    libzstd-dev \
     protobuf-compiler \
     protoc-gen-go \
     libprotobuf-dev \
-    zlib1g-dev 
+    zlib1g-dev
+
+
+RUN npm install -g uglify-es \
+    && npm install -g clean-css-cli
 
 # download source code
 RUN git clone --depth 1 --branch ${NDPI_VERSION}-stable https://github.com/ntop/nDPI.git nDPI
