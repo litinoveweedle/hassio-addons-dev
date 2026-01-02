@@ -18,11 +18,11 @@ do
         if [[ "$cnt" -eq 3 ]]; then
             bashio::log.info "Maxmind Database is up-to-date."
         else
-            exec s6-setuidgid geoip geoip "rm -f /var/run/geoip/finished"
+            rm -f /var/run/geoip/finished
             bashio::log.info "Updating Maxmind Database..."
-            exec s6-setuidgid geoip geoip /usr/bin/geoipupdate
+            exec s6-setuidgid geoip /usr/bin/geoipupdate
             bashio::log.info "Maxmind Database updated."
-            exec s6-setuidgid geoip geoip "touch /var/run/geoip/finished"
+            exec s6-setuidgid geoip "touch /var/run/geoip/finished"
         fi
     fi
     sleep 21600
