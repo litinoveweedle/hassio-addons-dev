@@ -52,7 +52,7 @@ options+=(--pid=/var/run/ntopng/ntopng.pid)
 options+=(--http-port="127.0.0.1:$(bashio::config 'ntopng_loc_port')")
 options+=(--https-port=0)
 options+=(--http-prefix="/ntopng_prefix")
-options+=(--instance-name="$(bashio::host.hostname)")
+options+=(--instance-name="homeassistant.local")
 
 if bashio::config.true 'custom_scripts'; then
     options+=(--scripts-dir=/data/scripts)
