@@ -11,7 +11,8 @@ do
     bashio::log.info "Geoip is configured"
     if bashio::fs.file_exists /etc/GeoIP.conf; then
         bashio::log.info "Checking state of the geoip database."
-        cnt=$(find /data/geoip/*.mmdb -mtime -1 -print 2>/dev/null | wc -l)
+        cnt=0
+        #cnt=$(find /data/geoip/*.mmdb -mtime -1 -print 2>/dev/null | wc -l)
 
         # Update GeoIP database if doesn't exist or is older then 1 day
         if [[ "$cnt" -eq 3 ]]; then
