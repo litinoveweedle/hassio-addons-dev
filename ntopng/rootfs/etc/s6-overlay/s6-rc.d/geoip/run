@@ -20,9 +20,9 @@ do
         else
             rm -f /var/run/geoip/finished
             bashio::log.info "Updating Maxmind Database..."
-            exec s6-setuidgid geoip /usr/bin/geoipupdate
+            s6-setuidgid geoip /usr/bin/geoipupdate
             bashio::log.info "Maxmind Database updated."
-            exec s6-setuidgid geoip "touch /var/run/geoip/finished"
+            s6-setuidgid geoip touch /var/run/geoip/finished
         fi
     fi
     sleep 21600
