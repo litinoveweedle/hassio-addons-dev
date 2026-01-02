@@ -1,0 +1,27 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "docker-build",
+      "type": "docker-build",
+      "dockerBuild": {
+        "tag": "ntopng:latest",
+        "dockerfile": "${workspaceFolder}/ntopng/Dockerfile",
+        "context": "${workspaceFolder}/ntopng",
+        "buildArgs": {
+         "BUILD_FROM": "ghcr.io/hassio-addons/debian-base/amd64:9.1.0",
+          "BUILD_NAME": "ntopng",
+          "BUILD_REPOSITORY": "litinoveweedle/hassio-addons-dev",
+          "BUILD_DESCRIPTION" : "hassio ntop addon",
+          "NDPI_VERSION": "5.0",
+          "NTOP_VERSION": "6.6",
+          "NETFLOW2NG_VERSION": "0.1.1",
+          "BUILD_ARCH": "amd64",
+          "BUILD_DATE": "",
+          "BUILD_REF": "",
+          "BUILD_VERSION": "" 
+         }
+      }
+    }
+  ]
+}
