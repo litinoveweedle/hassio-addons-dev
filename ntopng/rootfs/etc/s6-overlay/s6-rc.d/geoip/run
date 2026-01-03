@@ -20,6 +20,7 @@ do
         bashio::log.debug "GeoIP database $cnt files up-to-date."
         if [ "$cnt" -eq 3 ]; then
             bashio::log.info "GeoIP database is up-to-date."
+            touch /var/run/geoip/finished
         else
             rm -f /var/run/geoip/finished
             bashio::log.info "Updating GeoIP database..."
