@@ -48,5 +48,5 @@ fi
 
 bashio::log.info "netflow2ng ${options[@]}"
 
-exec s6-setuidgid netflow netflow2ng "${options[@]}"
+exec netflow2ng "${options[@]}"
 

@@ -189,10 +189,6 @@ COPY --from=stage2 /usr/local/bin/netflow2ng /usr/local/bin/netflow2ng
 COPY --from=stage2 /usr/local/bin/ntopng /usr/local/bin/ntopng
 COPY --from=stage2 /usr/local/share/ntopng /usr/local/share/ntopng
 
-RUN useradd -r -m -d /var/run/netflow -s /bin/false netflow \
-    && useradd -r -m -d /var/run/ntop -s /bin/false ntopng \ 
-    && useradd -r -m -d /var/run/geoip -s /bin/false geoip
-
 # Copy root filesystem
 COPY rootfs /
 RUN chmod 775 /etc

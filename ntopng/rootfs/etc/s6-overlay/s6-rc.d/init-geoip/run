@@ -8,19 +8,17 @@
 
 if ! bashio::fs.directory_exists /var/run/geoip; then
     mkdir -p /var/run/geoip
-    chown -R geoip:geoip /var/run/geoip
 fi
 
 if ! bashio::fs.directory_exists /data/geoip; then
     mkdir -p /data/geoip
-    chown -R geoip:geoip /data/geoip
 fi
 
 if bashio::config.has_value 'geoip_account_id'; then
     if bashio::config.has_value 'geoip_license_key'; then
         # Create GeoIP config
     	bashio::log.info "Found a Maxmind account id and license key pair, ntopng will support GeoIP lookups if valid."
-        echo -e "AccountID $(bashio::config 'geoip_account_id')\nLicenseKey $(bashio::config 'geoip_license_key')\nEditionIDs GeoLite2-ASN GeoLite2-City GeoLite2-Country\nDatabaseDirectory /data/geoip" > /etc/GeoIP.conf
+        echo -e "AccountID $(bashio::config 'geoip_account_id')\nLicenseKey $(bashio::config 'geoip_license_key')\nEditionIDs GeoLite2-ASN GeoLite2-City GeoLite2-Country\nDatabaseDirectory /data/geoip\nLockFile /var/run/geoip/geoip.lock" > /etc/GeoIP.conf
     else
         bashio::log.warning "No Maxmind GeoIP license key was found, ntop will not support GeoIP lookups. Please get a license from maxmind.com and put it into configuration."
         rm -f /etc/GeoIP.conf

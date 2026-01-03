@@ -20,21 +20,21 @@ bashio::net.wait_for "$(bashio::config 'zmq_loc_port')" localhost 900
 
 # Wait for Redis...
 bashio::log.info "ntopng is waiting until Redis is available..."
-for i in {1800..0}; do
+for i in {300..0}; do
     if [ `redis-cli PING` == "PONG" ]; then
         break;
     fi
-    sleep 5
+    sleep 1
 done
 
-# Wait for geoipupdate
+# Wait for geoipupdate...
 if bashio::fs.file_exists /etc/GeoIP.conf; then
     bashio::log.info "ntopng is waiting until geoipupdate download database..."
-    for i in {1800..0}; do
+    for i in {300..0}; do
         if bashio::fs.file_exists /var/run/geoip/finished; then
             break;
         fi
-        sleep 5
+        sleep 1
     done
 fi
 
@@ -45,7 +45,7 @@ fi
 bashio::log.info 'Starting ntopng...'
 
 options+=(--interface="zmq://127.0.0.1:$(bashio::config 'zmq_loc_port')")
-options+=(--data-dir=/data/rrd)
+options+=(--data-dir=/data/data)
 options+=(--pcap-dir=/data/pcap)
 options+=(--geoip-dir=/data/geoip)
 options+=(--pid=/var/run/ntopng/ntopng.pid)
@@ -56,6 +56,7 @@ options+=(--instance-name="homeassistant.local")
 
 if bashio::config.true 'custom_scripts'; then
     options+=(--scripts-dir=/data/scripts)
+    options+=(----callbacks-dir=/data/scripts/callbacks)
 fi
 
 if bashio::config.false 'ntop_auth'; then
@@ -118,5 +119,5 @@ fi
 bashio::log.info "ntopng ${options[@]}"
 
 # Run ntopng
-exec s6-setuidgid ntopng ntopng "${options[@]}"
+exec ntopng "${options[@]}"
 
