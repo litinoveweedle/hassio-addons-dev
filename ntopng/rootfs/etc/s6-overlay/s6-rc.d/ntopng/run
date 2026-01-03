@@ -26,6 +26,9 @@ for i in {300..0}; do
     fi
     sleep 1
 done
+if [[ "$i" -eq 0 ]]; then
+    bashio::log.warning "ntopng is done waiting. Starting anyway..."
+fi
 
 # Wait for geoipupdate...
 if bashio::fs.file_exists /etc/GeoIP.conf; then
@@ -36,10 +39,9 @@ if bashio::fs.file_exists /etc/GeoIP.conf; then
         fi
         sleep 1
     done
-fi
-
-if [[ "$i" = 0 ]]; then
-    bashio::log.warning "ntopng is done waiting. Starting anyway..."
+    if [[ "$i" -eq 0 ]]; then
+        bashio::log.warning "ntopng is done waiting. Starting anyway..."
+    fi
 fi
 
 bashio::log.info 'Starting ntopng...'
