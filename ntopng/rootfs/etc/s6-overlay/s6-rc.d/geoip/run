@@ -16,7 +16,8 @@ do
             continue
         fi
         # Update GeoIP database if doesn't exist or is older then 1 day
-        cnt=$(/usr/bin/find /data/geoip/*.mmdb -mtime -1 -print 2>/dev/null | /usr/bin/wc -l)
+        #cnt=$(/usr/bin/find /data/geoip/*.mmdb -mtime -1 -print 2>/dev/null | /usr/bin/wc -l)
+        cnt=0
         bashio::log.info "GeoIP database $cnt files up-to-date."
         if [[ "$cnt" -eq 3 ]]; then
             bashio::log.info "GeoIP database is up-to-date."
