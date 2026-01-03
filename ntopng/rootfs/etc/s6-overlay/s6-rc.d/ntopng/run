@@ -124,4 +124,3 @@ bashio::log.info "ntopng ${options[@]}"
 
 # Run ntopng
 exec ntopng "${options[@]}"
-

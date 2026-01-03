@@ -24,4 +24,3 @@ if bashio::config.true 'custom_scripts'; then
         cp -R /usr/local/share/ntopng/scripts /data/scripts
     fi
 fi
-

@@ -49,4 +49,3 @@ fi
 bashio::log.info "netflow2ng ${options[@]}"
 
 exec netflow2ng "${options[@]}"
-
