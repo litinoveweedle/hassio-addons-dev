@@ -28,9 +28,6 @@ server {
         sub_filter_once off;
 
         # replace hassio ingress url in the headers
-        proxy_redirect "/ntopng_prefix" "$http_x_ingress_path";
-
-        # just in case substitution doesn't work
-        rewrite ^/ntopng_prefix/(.*) /$http_x_ingress_path/$1 break;
+        proxy_redirect ~^.*/ntopng_prefix/(.*)$ $1;
     }
 }
