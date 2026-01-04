@@ -49,8 +49,6 @@ fi
 bashio::log.info 'Starting ntopng...'
 
 options+=(--interface="zmq://127.0.0.1:$(bashio::config 'zmq_loc_port')")
-options+=(--interface=bond0.50)
-options+=(--no-promisc)
 options+=(--data-dir=/data/data)
 options+=(--pcap-dir=/data/pcap)
 options+=(--geoip-dir=/data/geoip)
