@@ -20,14 +20,15 @@ server {
         #enable ntop in iframe
         proxy_hide_header X-Frame-Options;
 
-        # replace hassio ingress url in all content
+        # replace hassio ingress url in all response content
         sub_filter_types *;
         # replace prefix path
         sub_filter "/ntopng_prefix" "$http_x_ingress_path";
         sub_filter "&#47;ntopng_prefix" "$http_x_ingress_path";
         sub_filter_once off;
 
-        # replace hassio ingress url in the headers
-        proxy_redirect ~^.*/ntopng_prefix/(.*)$ $1;
+        # replace hassio ingress url in the response headers
+        absolute_redirect off;
+	    proxy_redirect ~^.*/ntopng_prefix(.*)$ $http_x_ingress_path$1;
     }
 }
