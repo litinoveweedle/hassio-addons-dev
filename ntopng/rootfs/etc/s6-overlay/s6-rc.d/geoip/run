@@ -4,23 +4,38 @@
 # Runs the netflow2ng daemon
 # ==============================================================================
 
-bashio::log.info "Starting Maxmind Database update runner..."
+bashio::log.info "Starting GeoIP database update runner..."
 
-while `true`
+while true
 do
     if bashio::fs.file_exists /etc/GeoIP.conf; then
-        cnt=$(find /data/geoip/*.mmdb -mtime -1 -print 2>/dev/null | wc -l)
-
-        # Update GeoIP database if doesn't exist or is older then 1 day
-        if [[ "$cnt" -eq 3 ]]; then
-            bashio::log.info "Maxmind Database is up-to-date."
-        else
-            exec s6-setuidgid geoip geoip "rm -f /var/run/geoip/finished"
-            bashio::log.info "Updating Maxmind Database..."
-            exec s6-setuidgid geoip geoip /usr/bin/geoipupdate
-            bashio::log.info "Maxmind Database updated."
-            exec s6-setuidgid geoip geoip "touch /var/run/geoip/finished"
+        bashio::log.info "Checking state of the GeoIP database."
+        if ! bashio::fs.directory_exists /data/geoip; then
+            bashio::log.info "GeoIP database directory does not exist."
+            sleep 5
+            continue
         fi
+        # Update GeoIP database if doesn't exist or is older then 1 day
+        cnt=$(find /data/geoip -name '*.mmdb' -mtime -1 -print | wc -l)
+        bashio::log.debug "GeoIP database $cnt files up-to-date."
+        if [ "$cnt" -eq 3 ]; then
+            bashio::log.info "GeoIP database is up-to-date."
+            touch /var/run/geoip/finished
+        else
+            rm -f /var/run/geoip/finished
+            bashio::log.info "Updating GeoIP database..."
+            /usr/bin/geoipupdate
+            if [ "$?" -ne 0 ]; then
+                bashio::log.error "GeoIP database update failed."
+                sleep 60
+                continue
+            else
+                bashio::log.info "GeoIP database updated."
+                touch /var/run/geoip/finished
+            fi
+        fi
+    else
+        bashio::log.info "GeoIP configuration not found, skipping database update."
     fi
     sleep 21600
 done

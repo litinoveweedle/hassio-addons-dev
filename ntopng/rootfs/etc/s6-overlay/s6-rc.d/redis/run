@@ -35,5 +35,4 @@ fi
 
 bashio::log.info "redis-server /etc/redis/redis.conf ${options[@]}"
 
-exec s6-setuidgid redis redis-server /etc/redis/redis.conf "${options[@]}"
-
+exec redis-server /etc/redis/redis.conf "${options[@]}"

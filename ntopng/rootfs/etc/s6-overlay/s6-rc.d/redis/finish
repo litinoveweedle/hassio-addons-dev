@@ -1,7 +1,6 @@
 #!/command/with-contenv bashio
 # ==============================================================================
-# Li Tin O've Weedle Add-on: ntopng
-# Take down the S6 supervision tree when redis fails
+# Li Tin O've Weedle Addons
 # ==============================================================================
 declare exit_code
 readonly exit_code_container=$(</run/s6-linux-init-container-results/exitcode)
@@ -23,4 +22,6 @@ elif [[ "${exit_code_service}" -ne 0 ]]; then
     echo "${exit_code_service}" > /run/s6-linux-init-container-results/exitcode
   fi
   exec /run/s6/basedir/bin/halt
+else
+  bashio::log.info "Service ${service} restarting..."
 fi
