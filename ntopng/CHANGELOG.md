@@ -4,7 +4,7 @@
 
 - updated ntopng to 6.6
 - updated nDPI to 5.0
-- updated netflow2ng to 0.1.0
+- updated netflow2ng to 0.2.2
 - GeoIP database persistent storage
 - fixed ntopng redirect urls
 - fixed ntopng requires restart loop
