@@ -101,21 +101,15 @@ if bashio::config.has_value 'log_level'; then
             options+=(--verbose=6)
             ;;
         info)
-            options+=(--verbose=5)
-            ;;
-        notice)
-            options+=(--verbose=4)
-            ;;
-        warning)
             options+=(--verbose=3)
             ;;
-        error)
+        notice)
             options+=(--verbose=2)
             ;;
-        fatal)
+        warning)
             options+=(--verbose=1)
             ;;
-        off)
+        error|fatal|off)
             options+=(--verbose=0)
             ;;
     esac
