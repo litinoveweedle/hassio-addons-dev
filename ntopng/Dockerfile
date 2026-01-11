@@ -43,6 +43,7 @@ RUN sed -i -e's/ main/ main contrib/g' /etc/apt/sources.list.d/debian.sources \
     libhiredis1.1.0 \
     libice6 \
     libjson-c5 \
+    libjemalloc2 \
     libkadm5clnt-mit12 \
     libkadm5srv-mit12 \
     libkdb5-10 \
@@ -108,7 +109,7 @@ RUN sed -i -e's/ main/ main contrib/g' /etc/apt/sources.list.d/debian.sources \
     flex \
     libtool \
     libtool-bin \
-    npm \
+#    npm \
     autoconf \
     pkg-config \
     automake \
@@ -130,6 +131,7 @@ RUN sed -i -e's/ main/ main contrib/g' /etc/apt/sources.list.d/debian.sources \
     libnetfilter-conntrack-dev \
     libreadline-dev \
     libjson-c-dev \
+    libjemalloc-dev \
     libldap2-dev \
     libexpat1-dev \
     libsnmp-dev \
@@ -146,13 +148,14 @@ RUN sed -i -e's/ main/ main contrib/g' /etc/apt/sources.list.d/debian.sources \
     zlib1g-dev
 
 
-RUN npm install -g uglify-es \
-    && npm install -g clean-css-cli
+#RUN npm install -g uglify-es \
+#    && npm install -g clean-css-cli
 
 # download source code
 RUN git clone --depth 1 --branch ${NDPI_VERSION}-stable https://github.com/ntop/nDPI.git nDPI
 RUN git clone --depth 1 --branch ${NTOP_VERSION}-stable https://github.com/ntop/ntopng.git ntopng
 RUN git clone --depth 1 --branch v${NETFLOW2NG_VERSION} https://github.com/synfinatic/netflow2ng.git netflow2ng
+COPY patch/os_jemalloc.patch ntopng/
 
 # Build all software
 RUN cd netflow2ng \
@@ -167,6 +170,7 @@ RUN cd nDPI \
     && make
 
 RUN cd ntopng \
+    && patch -p1 -i os_jemalloc.patch \
     && ./autogen.sh \
     && ./configure \
     && make \

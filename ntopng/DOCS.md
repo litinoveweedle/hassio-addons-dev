@@ -1,8 +1,9 @@
 # Li Tin O`ve Weedle Assistant Add-on: ntopng
 
 This is an ntopng add-on for Home Assistant.
-It includes opensource community version of ntopng
-and opensource netflow collector implementation netflow2ng
+Ntopng is an open-source, web-based network traffic monitoring and analysis tool designed to provide real-time and historical visibility into network activity.
+This addon includes opensource community version of ntopng and opensource Netflow collector implementation netflow2ng.
+It is supposed to be used together with the Netflow exporter hardware device (for example OpenWRT or Mikrotik router)
 
 
 ## Installation
@@ -18,7 +19,7 @@ Install ntopng addon in your Home Assistant
 2. Configure addon - see bellow section configuration
 3. Start the add-on.
 4. Check the logs of the add-on to see it in action.
-5. Configure your Netflow exporter device (i.e. router) to publish to the Hassio IP ntopng addon port 2055
+5. Configure your Netflow exporter device (i.e. router) to publish Netflow to the Hassio IP ntopng addon port 2055
 
 
 ## Configuration

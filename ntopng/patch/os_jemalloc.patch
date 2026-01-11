@@ -1,0 +1,22 @@
+--- a/configure.ac.in
++++ b/configure.ac.in
+@@ -279,12 +279,13 @@
+   fi
+ fi
+ 
+-JE=../jemalloc/lib/libjemalloc.a
+-if ! test -f "${JE}"; then
+- JE=
+-else
+- AC_DEFINE(HAVE_JEMALLOC, 1, [ntopng has been compiled with jemalloc])
+-fi
++dnl Check for jemalloc library
++AC_CHECK_LIB([jemalloc], [malloc], [
++  JE=-ljemalloc
++  AC_DEFINE(HAVE_JEMALLOC, 1, [ntopng has been compiled with jemalloc])
++], [
++  JE=
++])
+ 
+ SHORT_MACHINE=`uname -m | cut -b1-3`
+ 

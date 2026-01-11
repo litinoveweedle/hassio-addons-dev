@@ -1,5 +1,10 @@
 <!-- https://developers.home-assistant.io/docs/add-ons/presentation#keeping-a-changelog -->
 
+## 0.3.2
+
+- link ntopng to jemalloc for memory usage optimization
+- remove js/css compilation 
+
 ## 0.3.1
 
 - updated taptap-mqtt to v0.2.2 - fix node sensors getting intermittently unavailable and internal data cache corruption

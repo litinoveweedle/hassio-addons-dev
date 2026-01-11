@@ -15,7 +15,7 @@
           "BUILD_DESCRIPTION" : "hassio ntop addon",
           "NDPI_VERSION": "5.0",
           "NTOP_VERSION": "6.6",
-          "NETFLOW2NG_VERSION": "0.1.1",
+          "NETFLOW2NG_VERSION": "0.2.2",
           "BUILD_ARCH": "amd64",
           "BUILD_DATE": "",
           "BUILD_REF": "",
