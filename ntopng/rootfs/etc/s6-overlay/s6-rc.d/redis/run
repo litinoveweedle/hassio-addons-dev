@@ -24,7 +24,7 @@ if bashio::config.has_value 'log_level'; then
         notice)
             options+=(--loglevel notice)
             ;;
-        warnng|error|fatal)
+        warning|error|fatal)
             options+=(--loglevel warning)
             ;;
         off)
