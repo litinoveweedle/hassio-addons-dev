@@ -11,6 +11,7 @@ options+=(--bind 127.0.0.1)
 options+=(--port "$(bashio::config 'redis_loc_port')")
 options+=(--daemonize no)
 options+=(--dir /data/redis)
+options+=(--logfile "")
 
 # Find the matching ntopng log level
 if bashio::config.has_value 'log_level'; then
@@ -28,7 +29,7 @@ if bashio::config.has_value 'log_level'; then
             options+=(--loglevel warning)
             ;;
         off)
-            options+=(--loglevel warning --logfile "")
+            options+=(--loglevel warning >/dev/null 2>&1)
             ;;
     esac
 fi
