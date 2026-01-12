@@ -29,7 +29,8 @@ if bashio::config.has_value 'log_level'; then
             options+=(--loglevel warning)
             ;;
         off)
-            options+=(--loglevel warning ">/dev/null 2>&1")
+            options+=(--loglevel warning)
+            options+=(">/dev/null 2>&1")
             ;;
     esac
 fi
