@@ -6,6 +6,10 @@
 # Handles configuration
 # ==============================================================================
 
+if ! bashio::fs.directory_exists /var/run/redis; then
+    mkdir -p /var/run/redis
+fi
+
 if ! bashio::fs.directory_exists /var/log/redis; then
     mkdir -p /var/log/redis
 fi
