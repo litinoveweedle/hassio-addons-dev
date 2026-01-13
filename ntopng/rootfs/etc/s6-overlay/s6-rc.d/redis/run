@@ -8,6 +8,7 @@ declare -a options
 if bashio::config.true 'redis_disabled'; then
     bashio::log.info "Addon internal redis server is disabled, using system redis server instead"
     exec wait infinity
+fi
 
 bashio::log.info "Starting redis..."
 
