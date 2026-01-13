@@ -15,8 +15,8 @@ arch:
   - amd64
 init: false
 services:
-  - mysql:want
-  # - influxdb:want
+  - redis: want
+  - ntopng: provide
 map:
   - ssl
 ports:
@@ -38,6 +38,7 @@ options:
   ntopng_loc_port: 3000
   netflow2ng_loc_port: 8080
   redis_loc_port: 6379
+  redis_disabled: false
   custom_scripts: false
   dns_mode: 0
   local_net:
@@ -53,6 +54,7 @@ schema:
   ntopng_loc_port: int(1024,65535)
   netflow2ng_loc_port: int(1024,65535)
   redis_loc_port: int(1024,65535)
+  redis_disabled: bool
   custom_scripts: bool
   dns_mode: match(^[0-4]$)
   local_net:

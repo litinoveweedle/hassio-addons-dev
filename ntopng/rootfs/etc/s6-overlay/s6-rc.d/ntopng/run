@@ -21,7 +21,7 @@ bashio::net.wait_for "$(bashio::config 'zmq_loc_port')" localhost 900
 # Wait for Redis...
 bashio::log.info "ntopng is waiting until Redis is available."
 for i in {300..0}; do
-    if [ `redis-cli PING` == "PONG" ]; then
+    if [ `redis-cli -h 127.0.0.1 -p $(bashio::config 'redis_loc_port') PING` == "PONG" ]; then
         bashio::log.info "Redis is available."
         break;
     fi
