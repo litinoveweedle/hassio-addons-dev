@@ -109,7 +109,7 @@ RUN sed -i -e's/ main/ main contrib/g' /etc/apt/sources.list.d/debian.sources \
     flex \
     libtool \
     libtool-bin \
-#    npm \
+    npm \
     autoconf \
     pkg-config \
     automake \
@@ -148,8 +148,8 @@ RUN sed -i -e's/ main/ main contrib/g' /etc/apt/sources.list.d/debian.sources \
     zlib1g-dev
 
 
-#RUN npm install -g uglify-es \
-#    && npm install -g clean-css-cli
+RUN npm install -g uglify-es \
+    && npm install -g clean-css-cli
 
 # download source code
 RUN git clone --depth 1 --branch ${NDPI_VERSION}-stable https://github.com/ntop/nDPI.git nDPI
