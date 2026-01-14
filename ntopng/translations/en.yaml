@@ -47,6 +47,3 @@ configuration:
   redis_loc_port:
     name: Redis localhost port
     description: Internal localhost only port for communication from ntopng to Redis
-  redis_disabled:
-    name: Disable Redis server
-    description: If there is already redis server instance running on localhost, you can use this switch to disable Redis server in the Addon.

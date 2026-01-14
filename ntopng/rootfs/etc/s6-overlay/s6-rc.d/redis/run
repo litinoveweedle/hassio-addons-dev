@@ -5,10 +5,21 @@
 # ==============================================================================
 declare -a options
 
-if bashio::config.true 'redis_disabled'; then
-    bashio::log.info "Addon internal redis server is disabled, using system redis server instead"
-    exec wait infinity
-fi
+# Check if there is any redis running on the system
+bashio::net.wait_for "$(bashio::config 'redis_loc_port')" localhost 1000
+if [ $? -eq 0 ]; then
+    bashio::log.info "Redis configured port $(bashio::config 'redis_loc_port') is already open."
+    bashio::log.info "Testing if this is a valid redis server which can be used by addon."
+    if [ `redis-cli -h 127.0.0.1 -p $(bashio::config 'redis_loc_port') PING` == "PONG" ]; then
+        bashio::log.notice "Running redis server was found, addon will use it instead of internal Redis server."
+        exec wait infinity
+    else
+        bashio::log.fatal "Some process already run on the configured redis port $(bashio::config 'redis_loc_port')."
+        bashio::log.fatal "It doesn't seem to be a valid redis server or addon can not connect to it."
+        bashio::log.fatal "Please fix the configuration or stop the other process before starting the addon."
+        exit 1
+    fi
+fi   
 
 bashio::log.info "Starting redis..."
 
