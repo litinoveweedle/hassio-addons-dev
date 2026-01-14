@@ -12,7 +12,7 @@ if [ $? -eq 0 ]; then
     bashio::log.info "Testing if this is a valid redis server which can be used by addon."
     if [ `redis-cli -h 127.0.0.1 -p $(bashio::config 'redis_loc_port') PING` == "PONG" ]; then
         bashio::log.notice "Running redis server was found, addon will use it instead of internal Redis server."
-        exec wait infinity
+        exec sleep infinity
     else
         bashio::log.fatal "Some process already run on the configured redis port $(bashio::config 'redis_loc_port')."
         bashio::log.fatal "It doesn't seem to be a valid redis server or addon can not connect to it."
