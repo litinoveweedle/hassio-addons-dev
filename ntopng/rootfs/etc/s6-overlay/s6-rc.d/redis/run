@@ -10,7 +10,8 @@ bashio::net.wait_for "$(bashio::config 'redis_loc_port')" localhost 5
 if [ $? -eq 0 ]; then
     bashio::log.info "Redis configured port $(bashio::config 'redis_loc_port') is already open."
     bashio::log.info "Testing if this is a valid redis server which can be used by addon."
-    if [ `redis-cli -h 127.0.0.1 -p $(bashio::config 'redis_loc_port') PING` == "PONG" ]; then
+    resp=`redis-cli -h 127.0.0.1 -p $(bashio::config 'redis_loc_port') PING`
+    if [ "$resp" == "PONG" ]; then
         bashio::log.notice "Running redis server was found, addon will use it instead of internal Redis server."
         exec sleep infinity
     else

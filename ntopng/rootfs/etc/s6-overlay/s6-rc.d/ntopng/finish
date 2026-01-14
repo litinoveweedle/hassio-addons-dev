@@ -9,7 +9,7 @@ readonly exit_code_service="${1}"
 readonly exit_code_signal="${2}"
 readonly service="ntopng"
 
-bashio::log.info \
+bashio::log.notice \
   "Service ${service} exited with code ${exit_code_service}" \
   "(by signal ${exit_code_signal})"
 
@@ -24,5 +24,5 @@ elif [[ "${exit_code_service}" -ne 0 ]]; then
   fi
   exec /run/s6/basedir/bin/halt
 else
-  bashio::log.info "Service ${service} restarting..."
+  bashio::log.notice "Service ${service} restarting..."
 fi

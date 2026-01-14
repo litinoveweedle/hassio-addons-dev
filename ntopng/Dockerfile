@@ -191,8 +191,9 @@ ARG BUILD_VERSION
 COPY --from=stage2 /usr/local/bin/netflow2ng /usr/local/bin/netflow2ng
 COPY --from=stage2 /usr/local/bin/ntopng /usr/local/bin/ntopng
 COPY --from=stage2 /usr/local/share/ntopng /usr/local/share/ntopng
+COPY patch/net.sh /usr/lib/bashio/net.sh
 
-# Copy root filesystem
+# Copy root filesystem  
 COPY rootfs /
 RUN chmod 775 /etc
 
