@@ -6,7 +6,7 @@
 declare -a options
 
 # Check if there is any redis running on the system
-bashio::net.wait_for "$(bashio::config 'redis_loc_port')" localhost 1000
+bashio::net.wait_for "$(bashio::config 'redis_loc_port')" localhost 5
 if [ $? -eq 0 ]; then
     bashio::log.info "Redis configured port $(bashio::config 'redis_loc_port') is already open."
     bashio::log.info "Testing if this is a valid redis server which can be used by addon."

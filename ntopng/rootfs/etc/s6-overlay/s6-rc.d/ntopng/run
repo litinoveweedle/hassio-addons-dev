@@ -34,7 +34,7 @@ fi
 # Wait for geoipupdate update to finish
 if bashio::fs.file_exists /etc/GeoIP.conf; then
     bashio::log.info "ntopng is waiting until GeoIP update database."
-    for i in {300..0}; do
+    for i in {60..0}; do
         if bashio::fs.file_exists /var/run/geoip/finished; then
             bashio::log.info "GeoIP database is ready."
             break;
@@ -47,9 +47,9 @@ if bashio::fs.file_exists /etc/GeoIP.conf; then
 fi
 
 # Wait for Redis to become available
-bashio::net.wait_for "$(bashio::config 'redis_loc_port')" localhost 900
+bashio::net.wait_for "$(bashio::config 'redis_loc_port')" localhost 60
 if [ $? -eq 0 ]; then
-    for i in {300..0}; do
+    for i in {60..0}; do
         if [ `redis-cli -h 127.0.0.1 -p $(bashio::config 'redis_loc_port') PING` == "PONG" ]; then
             bashio::log.info "Redis is available."
             break;
@@ -66,7 +66,7 @@ else
 fi
 
 # Wait for Netflow2NG to become available
-bashio::net.wait_for "$(bashio::config 'zmq_loc_port')" localhost 900
+bashio::net.wait_for "$(bashio::config 'zmq_loc_port')" localhost 60
 if [ $? -eq 0 ]; then
     bashio::log.info "Netflow2NG is available."
 else
