@@ -40,27 +40,34 @@ jobs:
       - name: Normalize outputs
         id: normalize
         shell: bash
+        env:
+          ADDON_NAME: ${{ steps.info.outputs.name }}
+          ADDON_DESCRIPTION: ${{ steps.info.outputs.description }}
+          ADDON_URL: ${{ steps.info.outputs.url }}
+          ADDON_IMAGE: ${{ steps.info.outputs.image }}
+          ADDON_VERSION: ${{ steps.info.outputs.version }}
+          INPUT_VERSION: ${{ inputs.version }}
         run: |
           # Extract image name from config and remove {arch} placeholder
-          image_name=$(echo "${{ steps.info.outputs.image }}" | cut -d'/' -f3 | sed 's/-{arch}//' | sed 's/{arch}-//')
+          image_name=$(echo "${ADDON_IMAGE}" | cut -d'/' -f3 | sed 's/-{arch}//' | sed 's/{arch}-//')
           {
             echo "image_name=${image_name}"
             echo "name<<EOF"
-            echo "${{ steps.info.outputs.name }}"
+            echo "${ADDON_NAME}"
             echo "EOF"
             echo "description<<EOF"
-            echo "${{ steps.info.outputs.description }}"
+            echo "${ADDON_DESCRIPTION}"
             echo "EOF"
             echo "url<<EOF"
-            echo "${{ steps.info.outputs.url }}"
+            echo "${ADDON_URL}"
             echo "EOF"
             echo "registry_prefix=ghcr.io/${{ github.repository_owner }}"
           } >> "$GITHUB_OUTPUT"
           # Use provided version if set, otherwise use version from config
-          if [[ "${{ inputs.version }}" != "" ]]; then
-            echo "version=${{ inputs.version }}" >> "$GITHUB_OUTPUT"
+          if [[ "${INPUT_VERSION}" != "" ]]; then
+            echo "version=${INPUT_VERSION}" >> "$GITHUB_OUTPUT"
           else
-            echo "version=${{ steps.info.outputs.version }}" >> "$GITHUB_OUTPUT"
+            echo "version=${ADDON_VERSION}" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Prepare build matrix
