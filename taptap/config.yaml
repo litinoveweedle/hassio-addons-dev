@@ -37,10 +37,12 @@ options:
   ha_strings_availability_identified: false
   ha_stats_availability_online: false
   ha_stats_availability_identified: false
+  ha_nodes_sensors_recorder:
+    - energy
   ha_strings_sensors_recorder:
-    - energy_daily
+    - energy
   ha_stats_sensors_recorder:
-    - energy_daily
+    - energy
 schema:
   log_level: list(trace|debug|info|notice|warning|error|fatal)?
   mqtt_server: str
