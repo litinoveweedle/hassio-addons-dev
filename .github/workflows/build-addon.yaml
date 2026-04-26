@@ -48,26 +48,41 @@ jobs:
           ADDON_VERSION: ${{ steps.info.outputs.version }}
           INPUT_VERSION: ${{ inputs.version }}
         run: |
+          strip_wrapping_quotes() {
+            local VALUE="$1"
+            VALUE="${VALUE#\"}"
+            VALUE="${VALUE%\"}"
+            echo "${VALUE}"
+          }
+
+          ADDON_NAME_CLEAN="$(strip_wrapping_quotes "${ADDON_NAME}")"
+          ADDON_DESCRIPTION_CLEAN="$(strip_wrapping_quotes "${ADDON_DESCRIPTION}")"
+          ADDON_URL_CLEAN="$(strip_wrapping_quotes "${ADDON_URL}")"
+          ADDON_IMAGE_CLEAN="$(strip_wrapping_quotes "${ADDON_IMAGE}")"
+          ADDON_VERSION_CLEAN="$(strip_wrapping_quotes "${ADDON_VERSION}")"
+          INPUT_VERSION_CLEAN="$(strip_wrapping_quotes "${INPUT_VERSION}")"
+
           # Extract image name from config and remove {arch} placeholder
-          image_name=$(echo "${ADDON_IMAGE}" | cut -d'/' -f3 | sed 's/-{arch}//' | sed 's/{arch}-//')
+          IMAGE_NAME=$(echo "${ADDON_IMAGE_CLEAN}" | cut -d'/' -f3 | sed 's/-{arch}//' | sed 's/{arch}-//')
+
           {
-            echo "image_name=${image_name}"
+            echo "image_name=${IMAGE_NAME}"
             echo "name<<EOF"
-            echo "${ADDON_NAME}"
+            echo "${ADDON_NAME_CLEAN}"
             echo "EOF"
             echo "description<<EOF"
-            echo "${ADDON_DESCRIPTION}"
+            echo "${ADDON_DESCRIPTION_CLEAN}"
             echo "EOF"
             echo "url<<EOF"
-            echo "${ADDON_URL}"
+            echo "${ADDON_URL_CLEAN}"
             echo "EOF"
             echo "registry_prefix=ghcr.io/${{ github.repository_owner }}"
           } >> "$GITHUB_OUTPUT"
           # Use provided version if set, otherwise use version from config
-          if [[ "${INPUT_VERSION}" != "" ]]; then
-            echo "version=${INPUT_VERSION}" >> "$GITHUB_OUTPUT"
+          if [[ -n "${INPUT_VERSION_CLEAN}" ]]; then
+            echo "version=${INPUT_VERSION_CLEAN}" >> "$GITHUB_OUTPUT"
           else
-            echo "version=${ADDON_VERSION}" >> "$GITHUB_OUTPUT"
+            echo "version=${ADDON_VERSION_CLEAN}" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Prepare build matrix
