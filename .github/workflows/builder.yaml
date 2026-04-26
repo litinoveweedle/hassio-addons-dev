@@ -10,12 +10,6 @@ on:
   pull_request:
     branches:
       - main
-  workflow_dispatch:
-    inputs:
-      addon:
-        description: 'Choose addon to build'
-        required: true
-        type: string
 
 permissions:
   contents: read
@@ -46,17 +40,9 @@ jobs:
           CHANGED_FILES: ${{ steps.changed_files.outputs.all_changed_files }}
         run: |
           declare -a changed_addons
-          
-          # If workflow_dispatch with specific addon, only build that one
-          if [[ "${{ inputs.addon }}" != "" ]]; then
-            for addon in ${ADDONS}; do
-              if [[ "${{ inputs.addon }}" =~ ^${addon} ]]; then
-                changed_addons+=("${addon}")
-                break
-              fi
-            done
+
           # If workflow file changed, build all addons
-          elif [[ "${CHANGED_FILES}" =~ \.github/workflows/(builder|build-addon)\.yaml ]]; then
+          if [[ "${CHANGED_FILES}" =~ \.github/workflows/(builder|build-addon)\.yaml ]]; then
             changed_addons=(${ADDONS})
           # Otherwise, check which addons have changed files
           else
@@ -94,5 +80,7 @@ jobs:
     uses: ./.github/workflows/build-addon.yaml
     with:
       addon: ${{ matrix.addon }}
+      version: dev
       publish: false
+      is_release: false
     secrets: inherit

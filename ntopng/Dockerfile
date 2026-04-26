@@ -1,7 +1,7 @@
 # https://developers.home-assistant.io/docs/add-ons/configuration#add-on-dockerfile
 
 # Define build arguments with defaults (from build.yaml)
-ARG BUILD_ARCH
+ARG BUILD_ARCH="amd64"
 ARG BUILD_REPO="litinoveweedle/hassio-addons-dev"
 ARG BUILD_DESCRIPTION="hassio ntop addon"
 # renovate: datasource=github-releases depName=ntop-ndpi packageName=ntop/nDPI versioning=semver-coerced
