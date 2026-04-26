@@ -48,8 +48,8 @@ jobs:
           ADDON_VERSION: ${{ steps.info.outputs.version }}
           INPUT_VERSION: ${{ inputs.version }}
         run: |
-          # Extract image name from config and remove {arch} placeholder and quotes
-          image_name=$(echo "${ADDON_IMAGE}" | cut -d'/' -f3 | sed 's/-{arch}//' | sed 's/{arch}-//' | tr -d '"')
+          # Extract image name from config and remove {arch} placeholder
+          image_name=$(echo "${ADDON_IMAGE}" | cut -d'/' -f3 | sed 's/-{arch}//' | sed 's/{arch}-//')
           {
             echo "image_name=${image_name}"
             echo "name<<EOF"
