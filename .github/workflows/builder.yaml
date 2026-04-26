@@ -82,5 +82,5 @@ jobs:
       addon: ${{ matrix.addon }}
       version: dev
       publish: false
-      is_release: false
+      release: false
     secrets: inherit
