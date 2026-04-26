@@ -63,13 +63,11 @@ jobs:
             echo "EOF"
             echo "registry_prefix=ghcr.io/${{ github.repository_owner }}"
           } >> "$GITHUB_OUTPUT"
-          # Use provided version if set, otherwise use version from config (strip quotes)
+          # Use provided version if set, otherwise use version from config
           if [[ "${INPUT_VERSION}" != "" ]]; then
-            version=$(echo "${INPUT_VERSION}" | tr -d '"')
-            echo "version=${version}" >> "$GITHUB_OUTPUT"
+            echo "version=${INPUT_VERSION}" >> "$GITHUB_OUTPUT"
           else
-            version=$(echo "${ADDON_VERSION}" | tr -d '"')
-            echo "version=${version}" >> "$GITHUB_OUTPUT"
+            echo "version=${ADDON_VERSION}" >> "$GITHUB_OUTPUT"
           fi
 
       - name: Prepare build matrix
