@@ -8,7 +8,7 @@ on:
         required: true
         type: string
       version:
-        description: 'Version to publish (semver, e.g. 1.2.3) — leave empty to publish as dev'
+        description: 'Version to publish, default "dev" if empty'
         required: false
         type: string
 

@@ -10,15 +10,15 @@ on:
         required: true
         type: boolean
       version:
-        description: 'Optional version override'
+        description: 'Optional version override (default is "dev")'
         required: false
         type: string
         default: 'dev'
       is_release:
-        description: 'Whether this is a release (adds latest tag)'
+        description: 'Optional whether this is a release (adds latest tag, default is false)'
         required: false
         type: boolean
-        default: true
+        default: false
 
 jobs:
   prepare:
@@ -51,6 +51,7 @@ jobs:
           ADDON_DESCRIPTION: ${{ steps.info.outputs.description }}
           ADDON_URL: ${{ steps.info.outputs.url }}
           ADDON_IMAGE: ${{ steps.info.outputs.image }}
+          INPUT_VERSION: ${{ inputs.version }}
         run: |
           strip_wrapping_quotes() {
             local VALUE="$1"
@@ -63,6 +64,7 @@ jobs:
           ADDON_DESCRIPTION_CLEAN="$(strip_wrapping_quotes "${ADDON_DESCRIPTION}")"
           ADDON_URL_CLEAN="$(strip_wrapping_quotes "${ADDON_URL}")"
           ADDON_IMAGE_CLEAN="$(strip_wrapping_quotes "${ADDON_IMAGE}")"
+          INPUT_VERSION_CLEAN="$(strip_wrapping_quotes "${INPUT_VERSION}")"
 
           REGISTRY_PREFIX=$(echo "${ADDON_IMAGE_CLEAN}" | cut -d'/' -f1-2)
           IMAGE_NAME=$(echo "${ADDON_IMAGE_CLEAN}" | cut -d'/' -f3-)
@@ -79,7 +81,7 @@ jobs:
             echo "${ADDON_URL_CLEAN}"
             echo "EOF"
             echo "registry_prefix=${REGISTRY_PREFIX}"
-            echo "version=${{ inputs.version }}"
+            echo "version=${INPUT_VERSION_CLEAN}"
           } >> "$GITHUB_OUTPUT"
 
       - name: Prepare build matrix
