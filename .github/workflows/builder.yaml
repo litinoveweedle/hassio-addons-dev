@@ -80,5 +80,7 @@ jobs:
     uses: ./.github/workflows/build-addon.yaml
     with:
       addon: ${{ matrix.addon }}
+      version: dev
       publish: false
+      is_release: false
     secrets: inherit
