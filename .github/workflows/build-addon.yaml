@@ -64,8 +64,8 @@ jobs:
           ADDON_URL_CLEAN="$(strip_wrapping_quotes "${ADDON_URL}")"
           ADDON_IMAGE_CLEAN="$(strip_wrapping_quotes "${ADDON_IMAGE}")"
 
-          # Extract image name from config and remove {arch} placeholder
-          IMAGE_NAME=$(echo "${ADDON_IMAGE_CLEAN}" | cut -d'/' -f3 | sed 's/-{arch}//' | sed 's/{arch}-//')
+          REGISTRY_PREFIX=$(echo "${ADDON_IMAGE_CLEAN}" | cut -d'/' -f1-2)
+          IMAGE_NAME=$(echo "${ADDON_IMAGE_CLEAN}" | cut -d'/' -f3-)
 
           {
             echo "image_name=${IMAGE_NAME}"
@@ -78,7 +78,7 @@ jobs:
             echo "url<<EOF"
             echo "${ADDON_URL_CLEAN}"
             echo "EOF"
-            echo "registry_prefix=ghcr.io/${{ github.repository_owner }}"
+            echo "registry_prefix=${REGISTRY_PREFIX}"
             echo "version=${{ inputs.version }}"
           } >> "$GITHUB_OUTPUT"
 
