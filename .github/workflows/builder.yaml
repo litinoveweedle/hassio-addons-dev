@@ -94,5 +94,5 @@ jobs:
     uses: ./.github/workflows/build-addon.yaml
     with:
       addon: ${{ matrix.addon }}
-      publish: false
+      publish: ${{ github.event_name == 'workflow_dispatch' }}
     secrets: inherit
