@@ -8,8 +8,8 @@ on:
         required: true
         type: string
       version:
-        description: 'Set addon version to publish'
-        required: true
+        description: 'Version to publish (semver, e.g. 1.2.3) — leave empty to publish as dev'
+        required: false
         type: string
 
 permissions:
@@ -22,6 +22,8 @@ jobs:
     outputs:
       changed_addons: ${{ steps.changed_addons.outputs.addons }}
       changed: ${{ steps.changed_addons.outputs.changed }}
+      version: ${{ steps.version.outputs.version }}
+      is_release: ${{ steps.version.outputs.is_release }}
     steps:
       - name: Check out the repository
         uses: actions/checkout@v6.0.2
@@ -52,6 +54,21 @@ jobs:
             echo "No add-on with given name found (${{ inputs.addon }})";
           fi
 
+      - name: Compute version and release flag
+        id: version
+        run: |
+          INPUT_VERSION="${{ inputs.version }}"
+          if [[ -n "${INPUT_VERSION}" && "${INPUT_VERSION}" =~ ^[0-9]+\.[0-9]+ ]]; then
+            echo "version=${INPUT_VERSION}" >> "$GITHUB_OUTPUT"
+            echo "is_release=true" >> "$GITHUB_OUTPUT"
+          elif [[ -z "${INPUT_VERSION}" ]]; then
+            echo "version=dev" >> "$GITHUB_OUTPUT"
+            echo "is_release=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Invalid version format: ${INPUT_VERSION}"
+            exit 1
+          fi
+
   build:
     name: Build ${{ matrix.addon }}
     needs: init
@@ -67,7 +84,8 @@ jobs:
     uses: ./.github/workflows/build-addon.yaml
     with:
       addon: ${{ matrix.addon }}
+      version: ${{ needs.init.outputs.version }}
       publish: true
-      version: ${{ inputs.version }}
+      is_release: ${{ needs.init.outputs.is_release == 'true' }}
     secrets: inherit
             

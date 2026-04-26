@@ -13,6 +13,11 @@ on:
         description: 'Optional version override'
         required: false
         type: string
+      is_release:
+        description: 'Whether this is a release (adds latest tag)'
+        required: false
+        type: boolean
+        default: true
 
 jobs:
   prepare:
@@ -45,8 +50,6 @@ jobs:
           ADDON_DESCRIPTION: ${{ steps.info.outputs.description }}
           ADDON_URL: ${{ steps.info.outputs.url }}
           ADDON_IMAGE: ${{ steps.info.outputs.image }}
-          ADDON_VERSION: ${{ steps.info.outputs.version }}
-          INPUT_VERSION: ${{ inputs.version }}
         run: |
           strip_wrapping_quotes() {
             local VALUE="$1"
@@ -59,8 +62,6 @@ jobs:
           ADDON_DESCRIPTION_CLEAN="$(strip_wrapping_quotes "${ADDON_DESCRIPTION}")"
           ADDON_URL_CLEAN="$(strip_wrapping_quotes "${ADDON_URL}")"
           ADDON_IMAGE_CLEAN="$(strip_wrapping_quotes "${ADDON_IMAGE}")"
-          ADDON_VERSION_CLEAN="$(strip_wrapping_quotes "${ADDON_VERSION}")"
-          INPUT_VERSION_CLEAN="$(strip_wrapping_quotes "${INPUT_VERSION}")"
 
           # Extract image name from config and remove {arch} placeholder
           IMAGE_NAME=$(echo "${ADDON_IMAGE_CLEAN}" | cut -d'/' -f3 | sed 's/-{arch}//' | sed 's/{arch}-//')
@@ -77,13 +78,8 @@ jobs:
             echo "${ADDON_URL_CLEAN}"
             echo "EOF"
             echo "registry_prefix=ghcr.io/${{ github.repository_owner }}"
+            echo "version=${{ inputs.version }}"
           } >> "$GITHUB_OUTPUT"
-          # Use provided version if set, otherwise use version from config
-          if [[ -n "${INPUT_VERSION_CLEAN}" ]]; then
-            echo "version=${INPUT_VERSION_CLEAN}" >> "$GITHUB_OUTPUT"
-          else
-            echo "version=${ADDON_VERSION_CLEAN}" >> "$GITHUB_OUTPUT"
-          fi
 
       - name: Prepare build matrix
         id: matrix
@@ -132,7 +128,7 @@ jobs:
           image: ${{ matrix.image }}
           image-tags: |
             ${{ needs.prepare.outputs.version }}
-            latest
+            ${{ inputs.is_release && 'latest' || '' }}
           labels: |
             io.hass.type="addon"
             io.hass.name="${{ needs.prepare.outputs.name }}"
@@ -158,5 +154,5 @@ jobs:
           image-name: ${{ needs.prepare.outputs.image_name }}
           image-tags: |
             ${{ needs.prepare.outputs.version }}
-            latest
+            ${{ inputs.is_release && 'latest' || '' }}
           registry-prefix: ${{ needs.prepare.outputs.registry_prefix }}
