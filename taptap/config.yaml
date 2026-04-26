@@ -1,6 +1,6 @@
 # https://developers.home-assistant.io/docs/add-ons/configuration#add-on-config
 name: TapTap
-version: "dev"
+version: dev
 slug: taptap
 description: Tigo CCA to HomeAssistant MQTT bridge
 url: "https://github.com/litinoveweedle/hassio-addons/tree/main/taptap"
