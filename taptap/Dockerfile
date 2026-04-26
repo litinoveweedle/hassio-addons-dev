@@ -1,15 +1,26 @@
 # https://developers.home-assistant.io/docs/add-ons/configuration#add-on-dockerfile
-ARG BUILD_FROM
-FROM ${BUILD_FROM}
 
+# Define build arguments with defaults (from build.yaml)
+ARG BUILD_ARCH
+ARG BUILD_REPO="litinoveweedle/hassio-addons-dev"
+ARG BUILD_DESCRIPTION="hassio taptap addon"
+# renovate: datasource=github-releases depName=taptap packageName=litinoveweedle/taptap versioning=semver
+ARG TAPTAP_VERSION="0.2.6"
+# renovate: datasource=github-releases depName=taptap-mqtt packageName=litinoveweedle/taptap-mqtt versioning=semver
+ARG TAPTAP_MQTT_VERSION="0.2.6"
+
+# Use multi-arch base image
+# renovate: datasource=github-releases depName=hassio-addon-base packageName=hassio-addons/addon-base versioning=semver
+FROM ghcr.io/hassio-addons/base/${BUILD_ARCH}:20.1.0
+
+# Bring build arguments into the build context
 ARG BUILD_ARCH
 ARG BUILD_DATE
 ARG BUILD_DESCRIPTION
 ARG BUILD_NAME
 ARG BUILD_REF
-ARG BUILD_REPOSITORY
+ARG BUILD_REPO
 ARG BUILD_VERSION
-
 ARG TAPTAP_VERSION
 ARG TAPTAP_MQTT_VERSION
 
@@ -64,9 +75,9 @@ LABEL \
     org.opencontainers.image.description="${BUILD_DESCRIPTION}" \
     org.opencontainers.image.authors="Dominik Strnad <litinoveweedle@gmail.com>" \
     org.opencontainers.image.licenses="Apache 2.0" \
-    org.opencontainers.image.url="https://github.com/${BUILD_REPOSITORY}" \
-    org.opencontainers.image.source="https://github.com/${BUILD_REPOSITORY}" \
-    org.opencontainers.image.documentation="https://github.com/${BUILD_REPOSITORY}/blob/main/README.md" \
+    org.opencontainers.image.url="https://github.com/${BUILD_REPO}" \
+    org.opencontainers.image.source="https://github.com/${BUILD_REPO}" \
+    org.opencontainers.image.documentation="https://github.com/${BUILD_REPO}/blob/main/README.md" \
     org.opencontainers.image.created=${BUILD_DATE} \
     org.opencontainers.image.revision=${BUILD_REF} \
     org.opencontainers.image.version=${BUILD_VERSION}

@@ -1,18 +1,25 @@
 # https://developers.home-assistant.io/docs/add-ons/configuration#add-on-dockerfile
-ARG BUILD_FROM
-ARG BUILD_ARCH
-ARG BUILD_DATE
-ARG BUILD_DESCRIPTION
-ARG BUILD_NAME
-ARG BUILD_REF
-ARG BUILD_REPOSITORY
-ARG BUILD_VERSION
 
+# Define build arguments with defaults (from build.yaml)
+ARG BUILD_ARCH
+ARG BUILD_REPO="litinoveweedle/hassio-addons-dev"
+ARG BUILD_DESCRIPTION="hassio ntop addon"
+# renovate: datasource=github-releases depName=ntop-ndpi packageName=ntop/nDPI versioning=semver-coerced
+ARG NDPI_VERSION="5.0"
+# renovate: datasource=github-releases depName=ntop-ntopng packageName=ntop/ntopng versioning=semver-coerced
+ARG NTOP_VERSION="6.6"
+# renovate: datasource=github-releases depName=netflow2ng packageName=synfinatic/netflow2ng versioning=semver
+ARG NETFLOW2NG_VERSION="0.2.2"
+
+# Use multi-arch base image
+# renovate: datasource=github-releases depName=hassio-addon-debian-base packageName=hassio-addons/addon-debian-base versioning=semver
+FROM ghcr.io/hassio-addons/debian-base/${BUILD_ARCH}:9.3.0 AS stage1
+
+# Bring build arguments into the build context
+ARG BUILD_ARCH
 ARG NDPI_VERSION
 ARG NTOP_VERSION
 ARG NETFLOW2NG_VERSION
-
-FROM ${BUILD_FROM} AS stage1
 
 # Install runtime prerequisites
 RUN sed -i -e's/ main/ main contrib/g' /etc/apt/sources.list.d/debian.sources \
@@ -181,7 +188,7 @@ ARG BUILD_DATE
 ARG BUILD_DESCRIPTION
 ARG BUILD_NAME
 ARG BUILD_REF
-ARG BUILD_REPOSITORY
+ARG BUILD_REPO
 ARG BUILD_VERSION
 
 COPY --from=stage2 /usr/local/bin/netflow2ng /usr/local/bin/netflow2ng
@@ -204,9 +211,9 @@ LABEL \
     org.opencontainers.image.description="${BUILD_DESCRIPTION}" \
     org.opencontainers.image.authors="Dominik Strnad <litinoveweedle@gmail.com>" \
     org.opencontainers.image.licenses="Apache 2.0" \
-    org.opencontainers.image.url="https://github.com/${BUILD_REPOSITORY}" \
-    org.opencontainers.image.source="https://github.com/${BUILD_REPOSITORY}" \
-    org.opencontainers.image.documentation="https://github.com/${BUILD_REPOSITORY}/blob/main/README.md" \
+    org.opencontainers.image.url="https://github.com/${BUILD_REPO}" \
+    org.opencontainers.image.source="https://github.com/${BUILD_REPO}" \
+    org.opencontainers.image.documentation="https://github.com/${BUILD_REPO}/blob/main/README.md" \
     org.opencontainers.image.created=${BUILD_DATE} \
     org.opencontainers.image.revision=${BUILD_REF} \
     org.opencontainers.image.version=${BUILD_VERSION}
