@@ -4,18 +4,21 @@ on:
   workflow_call:
     inputs:
       addon:
+        description: 'Add-on name to build (e.g. "nginx")'
         required: true
         type: string
-      publish:
-        required: true
-        type: boolean
       version:
         description: 'Optional version override (default is "dev")'
         required: false
         type: string
         default: 'dev'
-      is_release:
-        description: 'Optional whether this is a release (adds latest tag, default is false)'
+      publish:
+        description: 'Optional flag to publish the image (upload image to the Registry)'
+        required: false
+        type: boolean
+        default: false
+      release:
+        description: 'Optional flag to release (adds latest tag to image in the Registry)'
         required: false
         type: boolean
         default: false
@@ -131,7 +134,7 @@ jobs:
           image: ${{ matrix.image }}
           image-tags: |
             ${{ needs.prepare.outputs.version }}
-            ${{ inputs.is_release && 'latest' || '' }}
+            ${{ inputs.release && 'latest' || '' }}
           labels: |
             io.hass.type="addon"
             io.hass.name="${{ needs.prepare.outputs.name }}"
@@ -157,5 +160,5 @@ jobs:
           image-name: ${{ needs.prepare.outputs.image_name }}
           image-tags: |
             ${{ needs.prepare.outputs.version }}
-            ${{ inputs.is_release && 'latest' || '' }}
+            ${{ inputs.release && 'latest' || '' }}
           registry-prefix: ${{ needs.prepare.outputs.registry_prefix }}

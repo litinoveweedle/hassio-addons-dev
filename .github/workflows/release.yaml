@@ -86,6 +86,6 @@ jobs:
       addon: ${{ matrix.addon }}
       version: ${{ needs.init.outputs.version }}
       publish: true
-      is_release: ${{ needs.init.outputs.is_release == 'true' }}
+      release: ${{ needs.init.outputs.is_release == 'true' }}
     secrets: inherit
             
