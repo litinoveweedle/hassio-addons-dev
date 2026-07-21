@@ -26,7 +26,7 @@ jobs:
       is_release: ${{ steps.version.outputs.is_release }}
     steps:
       - name: Check out the repository
-        uses: actions/checkout@v6.0.2
+        uses: actions/checkout@v7.0.1
         
       - name: Find add-on directories
         id: get_addons
