@@ -13,7 +13,7 @@ ARG NETFLOW2NG_VERSION="0.2.2"
 
 # Use multi-arch base image
 # renovate: datasource=github-releases depName=hassio-addon-debian-base packageName=hassio-addons/addon-debian-base versioning=semver
-FROM ghcr.io/hassio-addons/debian-base/${BUILD_ARCH}:9.3.0 AS stage1
+FROM ghcr.io/hassio-addons/debian-base/${BUILD_ARCH}:9.4.0 AS stage1
 
 # Bring build arguments into the build context
 ARG BUILD_ARCH
