@@ -11,7 +11,7 @@ ARG TAPTAP_MQTT_VERSION="0.2.6"
 
 # Use multi-arch base image
 # renovate: datasource=github-releases depName=hassio-addon-base packageName=hassio-addons/addon-base versioning=semver
-FROM ghcr.io/hassio-addons/base/${BUILD_ARCH}:20.1.0
+FROM ghcr.io/hassio-addons/base/${BUILD_ARCH}:21.0.4
 
 # Bring build arguments into the build context
 ARG BUILD_ARCH
